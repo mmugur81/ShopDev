@@ -1,16 +1,33 @@
 package com.mmugur81.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by mugurel on 10.08.2016.
+ * User Model
  */
 
 @Entity
+@Table(
+    name = "users",
+    uniqueConstraints = {@UniqueConstraint(name = "uq_users_email", columnNames = "email")}
+)
 public class User {
+
+    public static enum Status {
+        Pending,
+        Active,
+        Disabled
+    }
+
+    public static enum Type {
+        Admin,
+        Manager,
+        Client
+    }
+
+    /******************************************************************************************************************/
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -18,6 +35,25 @@ public class User {
     private String name;
 
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @Enumerated(EnumType.STRING)
+    private Type type;
+
+    /******************************************************************************************************************/
+
+    public User() { }
+
+    public User(String name, String email, Type type) {
+        this.name = name;
+        this.email = email;
+        this.type = type;
+        this.status = Status.Pending;
+    }
+
+    /******************************************************************************************************************/
 
     public long getId() {
         return id;
@@ -41,5 +77,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 }
