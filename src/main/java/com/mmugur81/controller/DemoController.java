@@ -43,10 +43,10 @@ public class DemoController {
 
         Category cat1 = categoryService.get(2);
 
-        List<Category> categories1 = cat1.getSubCategories();
-        List<Category> categories2 = categoryService.getAllSubCategories(2);
+        //List<Category> categories1 = cat1.getSubCategories();
+        //List<Category> categories2 = categoryService.getAllSubCategories(2);
 
-        Product product = productService.createProduct("S1 2GB RAM", 3, 1, 50);
+        //Product product = productService.createProduct("S1 2GB RAM", 3, 1, 50);
 
         return "hello";
     }

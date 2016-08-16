@@ -12,7 +12,7 @@ import javax.persistence.*;
     name = "users",
     uniqueConstraints = {@UniqueConstraint(name = "uq_users_email", columnNames = "email")}
 )
-public class User {
+public class User extends BaseModel {
 
     public static enum Status {
         Pending,
@@ -27,10 +27,6 @@ public class User {
     }
 
     /******************************************************************************************************************/
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
 
     private String name;
 
@@ -54,14 +50,6 @@ public class User {
     }
 
     /******************************************************************************************************************/
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
