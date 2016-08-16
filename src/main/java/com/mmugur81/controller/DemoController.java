@@ -1,8 +1,10 @@
 package com.mmugur81.controller;
 
 import com.mmugur81.model.Category;
+import com.mmugur81.model.Product;
 import com.mmugur81.model.User;
 import com.mmugur81.service.CategoryService;
+import com.mmugur81.service.ProductService;
 import com.mmugur81.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,9 @@ public class DemoController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private ProductService productService;
+
     @RequestMapping(value = "/demo")
     public String sayDemo(Model model) {
         model.addAttribute("greeting", "Hey world!");
@@ -40,6 +45,8 @@ public class DemoController {
 
         List<Category> categories1 = cat1.getSubCategories();
         List<Category> categories2 = categoryService.getAllSubCategories(2);
+
+        Product product = productService.createProduct("S1 2GB RAM", 3, 1, 50);
 
         return "hello";
     }
