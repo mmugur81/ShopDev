@@ -18,7 +18,7 @@ public class Category {
     private String name;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "id_category_parent", foreignKey = @ForeignKey(name = "fk_categories_id"))
+    @JoinColumn(name = "id_category_parent", foreignKey = @ForeignKey(name = "fk_categories_categories_id"))
     private Category parentCategory;
 
     @OneToMany(mappedBy = "parentCategory", fetch = FetchType.LAZY)

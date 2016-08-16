@@ -21,4 +21,8 @@ public class UserService {
         newUser = userRepo.saveAndFlush(newUser);
         return newUser;
     }
+
+    public User get(long id) {
+        return userRepo.findOne(id);
+    }
 }
