@@ -9,11 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "products")
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class Product extends BaseModel {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "id_category", foreignKey = @ForeignKey(name = "fk_products_categories_id"))
@@ -42,14 +38,6 @@ public class Product {
     }
 
     /******************************************************************************************************************/
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public Category getCategory() {
         return category;

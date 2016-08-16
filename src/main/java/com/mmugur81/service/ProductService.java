@@ -38,4 +38,8 @@ public class ProductService {
         product.setPrice(p);
         return productRepo.saveAndFlush(product);
     }
+
+    public Product get(long id) {
+        return productRepo.findOne(id);
+    }
 }
