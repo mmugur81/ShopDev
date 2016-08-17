@@ -28,9 +28,13 @@ public class User extends BaseModel {
 
     /******************************************************************************************************************/
 
-    private String name;
+    private String firstName;
+
+    private String lastName;
 
     private String email;
+
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -42,21 +46,31 @@ public class User extends BaseModel {
 
     public User() { }
 
-    public User(String name, String email, Type type) {
-        this.name = name;
+    public User(String firstName, String lastName, String email, String password, Type type) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
+        this.password = password;
         this.type = type;
-        this.status = Status.Pending;
+        this.status = (type == Type.Admin)? Status.Active : Status.Pending;
     }
 
     /******************************************************************************************************************/
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -81,5 +95,13 @@ public class User extends BaseModel {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

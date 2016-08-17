@@ -22,8 +22,8 @@ public class UserService {
 
     /******************************************************************************************************************/
 
-    public User registerUser(String name, String email, User.Type type) {
-        User newUser = new User(name, email, type);
+    public User registerUser(String firstName, String lastName, String email, String password, User.Type type) {
+        User newUser = new User(firstName, lastName, email, password, type);
         newUser = userRepo.saveAndFlush(newUser);
         return newUser;
     }
