@@ -1,11 +1,9 @@
 package com.mmugur81.service;
 
-import com.mmugur81.model.Category;
-import com.mmugur81.model.Price;
-import com.mmugur81.model.Product;
-import com.mmugur81.model.User;
+import com.mmugur81.model.*;
 import com.mmugur81.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,14 +14,28 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductService {
 
-    @Autowired
     private ProductRepository productRepo;
 
-    @Autowired
     private CategoryService categoryService;
 
-    @Autowired
     private UserService userService;
+
+    private Currency defaultCurrency;
+
+    @Autowired
+    public ProductService(
+            ProductRepository productRepo,
+            CategoryService categoryService,
+            UserService userService,
+            @Value("${app.currency}") Currency defaultCurrency
+    ) {
+        this.productRepo = productRepo;
+        this.categoryService = categoryService;
+        this.userService = userService;
+        this.defaultCurrency = defaultCurrency;
+    }
+
+    /******************************************************************************************************************/
 
     public Product createProduct(String title, Category category, User user) {
         Product product = new Product(title, category, user);
@@ -34,7 +46,7 @@ public class ProductService {
         Category category = categoryService.get(categoryId);
         User user = userService.get(userId);
         Product product = new Product(title, category, user);
-        Price p = new Price(price);
+        Price p = new Price(price, this.defaultCurrency);
         product.setPrice(p);
         return productRepo.saveAndFlush(product);
     }

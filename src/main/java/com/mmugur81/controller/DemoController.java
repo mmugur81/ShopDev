@@ -1,6 +1,7 @@
 package com.mmugur81.controller;
 
 import com.mmugur81.model.Category;
+import com.mmugur81.model.Price;
 import com.mmugur81.model.Product;
 import com.mmugur81.model.User;
 import com.mmugur81.service.CategoryService;
@@ -41,12 +42,14 @@ public class DemoController {
         //Category cat3 = categoryService.add("Apple", cat1);
         //Category cat4 = categoryService.add("S3", 3);
 
-        Category cat1 = categoryService.get(2);
+        //Category cat1 = categoryService.get(2);
 
         //List<Category> categories1 = cat1.getSubCategories();
         //List<Category> categories2 = categoryService.getAllSubCategories(2);
 
-        //Product product = productService.createProduct("S1 2GB RAM", 3, 1, 50);
+        Product product = productService.createProduct("S1 2GB RAM", 3, 1, 50);
+
+        //Price p = new Price(10);
 
         return "hello";
     }

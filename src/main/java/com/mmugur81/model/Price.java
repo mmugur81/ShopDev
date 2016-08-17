@@ -16,11 +16,6 @@ import java.util.Properties;
 @Embeddable
 public class Price {
 
-    /* todo need to figure a way to read from application.properties
-    @Transient
-    @Value("${app.currency}")*/
-    public static final Currency defaultCurrency = Currency.RON;
-
     private double price;
 
     @Enumerated(EnumType.STRING)
@@ -30,11 +25,6 @@ public class Price {
     /******************************************************************************************************************/
 
     public Price() {}
-
-    public Price(double price) {
-        this.price = price;
-        this.currency = defaultCurrency;
-    }
 
     public Price(double price, Currency currency) {
         this.price = price;
