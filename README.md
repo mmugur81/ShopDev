@@ -4,3 +4,4 @@ https://camo.githubusercontent.com/3cb1581bcbba4b95990b990dbc390495da12da96/6874
 
 TODO - implement DB migrations
 
+Test User email changed for project
