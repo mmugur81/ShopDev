@@ -1,6 +1,7 @@
 package com.mmugur81.service;
 
 import com.mmugur81.model.User;
+import com.mmugur81.model.UserRole;
 import com.mmugur81.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +23,15 @@ public class UserService {
 
     /******************************************************************************************************************/
 
-    public User registerUser(String firstName, String lastName, String email, String password, User.Type type) {
-        User newUser = new User(firstName, lastName, email, password, type);
+    public User registerUser(String firstName, String lastName, String email, String password) {
+        User newUser = new User(firstName, lastName, email, password);
         newUser = userRepo.saveAndFlush(newUser);
         return newUser;
+    }
+
+    public void addRole(User user, UserRole.Role role) {
+        user.addRole(role);
+        userRepo.saveAndFlush(user);
     }
 
     public User get(long id) {
