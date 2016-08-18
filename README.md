@@ -5,6 +5,8 @@ http://www.mkyong.com/spring-security/spring-security-form-login-using-database/
 
 http://www.mkyong.com/spring-security/spring-security-hibernate-annotation-example/
 
+https://hellokoding.com/registration-and-login-example-with-spring-xml-configuration-maven-jsp-and-mysql/
+
 TODO - implement DB migrations
 
 Test User email changed for project
