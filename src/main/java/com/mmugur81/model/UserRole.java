@@ -11,14 +11,14 @@ import javax.persistence.*;
 @Table(
     name = "user_roles",
     uniqueConstraints = {@UniqueConstraint(
-            name = "uq_user_roles", columnNames = {"id", "role"}
+            name = "uq_user_roles", columnNames = {"id_user", "role"}
     )}
 )
 public class UserRole extends BaseModel {
 
     public static enum Role {
-        ROLE_ADMIN,
-        ROLE_USER
+        ADMIN,
+        USER
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

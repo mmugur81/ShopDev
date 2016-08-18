@@ -48,7 +48,7 @@ public class User extends BaseModel {
         this.email = email;
         this.password = password;
         this.status = Status.Pending;
-        this.addRole(UserRole.Role.ROLE_USER);
+        this.addRole(UserRole.Role.USER);
     }
 
     /******************************************************************************************************************/

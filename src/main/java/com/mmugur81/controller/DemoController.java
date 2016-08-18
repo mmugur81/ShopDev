@@ -9,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-
 /**
  * Created by mugurel on 09.08.2016.
  */
@@ -33,8 +31,8 @@ public class DemoController {
         System.out.println("Touched Demo controller - sayDemo action");
 
         User user = userService.registerUser("Mugurel", "Mirica", "ceva@nimic.lol", "s3cr3t");
-        userService.addRole(user, UserRole.Role.ROLE_ADMIN);
-        System.out.println("Has role ADDMIN? "+user.hasRole(UserRole.Role.ROLE_ADMIN));
+        userService.addRole(user, UserRole.Role.ADMIN);
+        System.out.println("Has role ADDMIN? "+user.hasRole(UserRole.Role.ADMIN));
 
         //Category cat1 = categoryService.add("Telefoane");
         //Category cat2 = categoryService.add("Samsung", cat1);
