@@ -57,4 +57,9 @@ public class DemoController {
 
         return "account/login";
     }
+
+    @RequestMapping(value = "/")
+    public String home() {
+        return "hello";
+    }
 }
