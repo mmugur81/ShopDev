@@ -1,9 +1,6 @@
 package com.mmugur81.controller;
 
-import com.mmugur81.model.Category;
-import com.mmugur81.model.Price;
-import com.mmugur81.model.Product;
-import com.mmugur81.model.User;
+import com.mmugur81.model.*;
 import com.mmugur81.service.CategoryService;
 import com.mmugur81.service.ProductService;
 import com.mmugur81.service.UserService;
@@ -35,7 +32,9 @@ public class DemoController {
         model.addAttribute("greeting", "Hey world!");
         System.out.println("Touched Demo controller - sayDemo action");
 
-        //User user = userService.registerUser("Mugurel", "ceva@nimic.lol", User.Type.Admin);
+        User user = userService.registerUser("Mugurel", "Mirica", "ceva@nimic.lol", "s3cr3t");
+        userService.addRole(user, UserRole.Role.ROLE_ADMIN);
+        System.out.println("Has role ADDMIN? "+user.hasRole(UserRole.Role.ROLE_ADMIN));
 
         //Category cat1 = categoryService.add("Telefoane");
         //Category cat2 = categoryService.add("Samsung", cat1);
@@ -47,7 +46,7 @@ public class DemoController {
         //List<Category> categories1 = cat1.getSubCategories();
         //List<Category> categories2 = categoryService.getAllSubCategories(2);
 
-        Product product = productService.createProduct("S1 2GB RAM", 3, 1, 50);
+        //Product product = productService.createProduct("S1 2GB RAM", 3, 1, 50);
 
         //Price p = new Price(10);
 

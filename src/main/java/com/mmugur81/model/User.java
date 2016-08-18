@@ -1,6 +1,8 @@
 package com.mmugur81.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by mugurel on 10.08.2016.
@@ -20,12 +22,6 @@ public class User extends BaseModel {
         Disabled
     }
 
-    public static enum Type {
-        Admin,
-        Manager,
-        Client
-    }
-
     /******************************************************************************************************************/
 
     private String firstName;
@@ -39,20 +35,20 @@ public class User extends BaseModel {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Enumerated(EnumType.STRING)
-    private Type type;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<UserRole> userRoles = new HashSet<>();
 
     /******************************************************************************************************************/
 
     public User() { }
 
-    public User(String firstName, String lastName, String email, String password, Type type) {
+    public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.type = type;
-        this.status = (type == Type.Admin)? Status.Active : Status.Pending;
+        this.status = Status.Pending;
+        this.addRole(UserRole.Role.ROLE_USER);
     }
 
     /******************************************************************************************************************/
@@ -89,19 +85,32 @@ public class User extends BaseModel {
         this.status = status;
     }
 
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    public void addRole(UserRole.Role role) {
+        this.userRoles.add(new UserRole(this, role));
+    }
+
+    public boolean hasRole(UserRole.Role role) {
+        for (UserRole ur : this.userRoles) {
+            if (ur.getRole().equals(role)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
