@@ -113,4 +113,8 @@ public class User extends BaseModel {
         }
         return false;
     }
+
+    public boolean isActive() {
+        return this.status == Status.Active;
+    }
 }
