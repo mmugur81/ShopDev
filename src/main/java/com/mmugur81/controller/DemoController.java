@@ -5,6 +5,8 @@ import com.mmugur81.service.CategoryService;
 import com.mmugur81.service.ProductService;
 import com.mmugur81.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +33,7 @@ public class DemoController {
         model.addAttribute("greeting", "Hey world!");
         System.out.println("Touched Demo controller - sayDemo action");
 
-        User user = userService.registerUser("Mugurel", "Mirica", "ceva@nimic.lol", "s3cr3t");
+        User user = userService.registerUser("Mugurel", "Mirica", "mmugur81@gmail.com", "admin");
         userService.addRole(user, UserRole.Role.ADMIN);
         System.out.println("Has role ADDMIN? "+user.hasRole(UserRole.Role.ADMIN));
 
@@ -52,14 +54,10 @@ public class DemoController {
         return "hello";
     }
 
-    @RequestMapping(value = "/account/login")
-    public String login(Model model) {
-
-        return "account/login";
-    }
-
     @RequestMapping(value = "/")
-    public String home() {
+    public String home(Model model) {
+        User user = userService.getAuthenticatedUser();
+
         return "hello";
     }
 }
