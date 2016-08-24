@@ -1,5 +1,6 @@
 package com.mmugur81.model;
 
+import com.mmugur81.validator.EmailUnique;
 import com.mmugur81.validator.PasswordMatches;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -42,11 +43,11 @@ public class User extends BaseModel {
 
     @NotEmpty
     @Email
-    // TODO @EmailExistsConstraint(message = "email is not available")
+    @EmailUnique
     private String email;
 
     @Size(min=5, max=30)
-    @Column(length = 30)
+    @Column(length = 64)
     private String password;
 
     @Transient
