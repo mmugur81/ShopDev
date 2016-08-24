@@ -51,10 +51,9 @@ public class UserService {
     }
 
     public User getAuthenticatedUser() {
-        UserDetails ud = (UserDetails) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal();
-        if (ud != null) {
-            return userRepo.findByEmail(ud.getUsername());
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            return userRepo.findByEmail(((UserDetails) principal).getUsername());
         }
         return null;
     }
