@@ -42,9 +42,8 @@ public class UserService {
             return null;
         }
 
-        Authentication auth = new UsernamePasswordAuthenticationToken(
-            newUser, null, new ArrayList<>());
-
+        // Authenticate newly registered user
+        Authentication auth = new UsernamePasswordAuthenticationToken(newUser, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         return savedUser;

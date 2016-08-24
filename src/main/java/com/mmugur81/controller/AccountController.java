@@ -1,13 +1,18 @@
 package com.mmugur81.controller;
 
+import com.mmugur81.model.User;
 import com.mmugur81.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 /**
  * Created by mugurel on 19.08.2016.
@@ -27,7 +32,7 @@ public class AccountController {
         this.ms = ms;
     }
 
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout, HttpServletRequest request) {
         if (error != null) {
             String msg = ms.getMessage("account.login.error_invaild_password", null, request.getLocale());
@@ -40,6 +45,26 @@ public class AccountController {
         }
 
         return "/account/login";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(Model model) {
+        model.addAttribute("userForm", new User());
+
+        return "/account/register";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(
+        @ModelAttribute("userForm") @Valid User userForm,
+        BindingResult bindingResult
+    ) {
+        if (bindingResult.hasErrors()) {
+            return "/account/register";
+        }
+
+        // Todo add register logic
+        return "redirect:/index";
     }
 
     @RequestMapping(value = "/")
