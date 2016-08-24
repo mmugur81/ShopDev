@@ -1,6 +1,12 @@
 package com.mmugur81.model;
 
+import com.mmugur81.validator.PasswordMatches;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,8 +20,10 @@ import java.util.Set;
     name = "users",
     uniqueConstraints = {@UniqueConstraint(name = "uq_users_email", columnNames = "email")}
 )
+@PasswordMatches
 public class User extends BaseModel {
 
+    // Max 20 chars
     public static enum Status {
         Pending,
         Active,
@@ -24,15 +32,28 @@ public class User extends BaseModel {
 
     /******************************************************************************************************************/
 
+    @Size(min=3, max=30)
+    @Column(length = 30)
     private String firstName;
 
+    @Size(min=3, max=30)
+    @Column(length = 30)
     private String lastName;
 
+    @NotEmpty
+    @Email
+    // TODO @EmailExistsConstraint(message = "email is not available")
     private String email;
 
+    @Size(min=5, max=30)
+    @Column(length = 30)
     private String password;
 
+    @Transient
+    private String passwordConfirm;
+
     @Enumerated(EnumType.STRING)
+    @Column(length = 20, columnDefinition = "CHAR(20)")
     private Status status;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
@@ -91,6 +112,14 @@ public class User extends BaseModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 
     public Set<UserRole> getUserRoles() {
