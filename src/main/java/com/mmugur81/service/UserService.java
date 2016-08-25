@@ -35,8 +35,16 @@ public class UserService {
 
     public User registerUser(String firstName, String lastName, String email, String password) {
         User newUser = new User(firstName, lastName, email, password);
-        newUser.setPassword(passwordEncoder.encode(password));
 
+        return this.registerByModel(newUser);
+    }
+
+    public User registerByModel(User newUser) {
+        // Encode password
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        newUser.addRole(UserRole.Role.USER);
+
+        // Save user to DB
         User savedUser = userRepo.saveAndFlush(newUser);
         if (savedUser == null) {
             return null;
