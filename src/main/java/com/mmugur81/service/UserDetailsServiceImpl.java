@@ -1,10 +1,10 @@
 package com.mmugur81.service;
 
+import com.mmugur81.model.User;
 import com.mmugur81.model.UserRole;
 import com.mmugur81.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,16 +33,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        com.mmugur81.model.User user = userRepo.findByEmail(username);
+        User user = userRepo.findByEmail(username);
 
         if (user == null) {
             throw new UsernameNotFoundException("Could not find user with email " + username);
         }
 
-        return buildUserForAuthentication(user);
+        org.springframework.security.core.userdetails.User ud = buildUserForAuthentication(user);
+        return ud;
     }
 
-    private User buildUserForAuthentication(com.mmugur81.model.User user) {
+    private org.springframework.security.core.userdetails.User
+    buildUserForAuthentication(User user) {
 
         // Build user's authorities
         List<GrantedAuthority> authorities = new ArrayList<>();
@@ -51,8 +53,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         // Build and return the user
-        return new User(user.getEmail(), user.getPassword(),
-                user.isActive(), true, true, true, authorities);
+        return new org.springframework.security.core.userdetails.User(
+            user.getEmail(), user.getPassword(),
+            user.isActive(), true, true, true, authorities
+        );
     }
 
 }
