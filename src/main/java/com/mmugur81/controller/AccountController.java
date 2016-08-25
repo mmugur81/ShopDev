@@ -78,6 +78,8 @@ public class AccountController {
 
     @RequestMapping(value = "/")
     public String index() {
+        User user = userService.getAuthenticatedUser();
+
         return "/account/index";
     }
 }

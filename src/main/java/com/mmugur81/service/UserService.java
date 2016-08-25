@@ -43,6 +43,7 @@ public class UserService {
         // Encode password
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         newUser.addRole(UserRole.Role.USER);
+        newUser.setStatus(User.Status.Active);
 
         // Save user to DB
         User savedUser = userRepo.saveAndFlush(newUser);
@@ -61,6 +62,9 @@ public class UserService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             return userRepo.findByEmail(((UserDetails) principal).getUsername());
+        }
+        if (principal instanceof User) {
+            return (User) principal;
         }
         return null;
     }
