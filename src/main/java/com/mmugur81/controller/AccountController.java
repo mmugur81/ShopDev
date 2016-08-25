@@ -35,7 +35,7 @@ public class AccountController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout, HttpServletRequest request) {
         if (error != null) {
-            String msg = ms.getMessage("account.login.error_invaild_password", null, request.getLocale());
+            String msg = ms.getMessage("account.login.error_invalid_password", null, request.getLocale());
             model.addAttribute("error", msg);
         }
 
