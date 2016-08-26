@@ -53,11 +53,4 @@ public class DemoController {
 
         return "hello";
     }
-
-    @RequestMapping(value = "/")
-    public String home(Model model) {
-        User user = userService.getAuthenticatedUser();
-
-        return "hello";
-    }
 }
