@@ -43,16 +43,3 @@ body {
 .has-error {
     color: red
 }
-
-.navbar-custom {
-}
-
-.footer-custom {
-    background-color: #080808;
-    color: #CCCCCC;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 5px;
-    text-align: center;
-}
