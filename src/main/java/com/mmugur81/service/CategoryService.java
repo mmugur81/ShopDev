@@ -45,6 +45,10 @@ public class CategoryService {
         return categoryRepo.findOne(id);
     }
 
+    public List<Category> getAllCategories() {
+        return categoryRepo.findAll();
+    }
+
     // Redundant
     public List<Category> getAllSubCategories(long id) {
         Category parentCategory = categoryRepo.findOne(id);

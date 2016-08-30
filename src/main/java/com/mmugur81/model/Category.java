@@ -13,6 +13,9 @@ public class Category extends BaseModel {
 
     private String name;
 
+    @Lob
+    private String description;
+
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "id_category_parent", foreignKey = @ForeignKey(name = "fk_categories_category_id"))
     private Category parentCategory;
@@ -43,8 +46,20 @@ public class Category extends BaseModel {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Category getParentCategory() {
         return parentCategory;
+    }
+
+    public String getParentCategoryName() {
+        return (this.parentCategory != null)? this.parentCategory.getName() : null;
     }
 
     public void setParentCategory(Category parentCategory) {
