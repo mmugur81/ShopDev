@@ -43,3 +43,5 @@ body {
 .has-error {
     color: red
 }
+
+.center-block {float: none !important}
