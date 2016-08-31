@@ -44,4 +44,24 @@ body {
     color: red
 }
 
+.link-edit {
+    color: #00A;
+}
+a.link-edit:hover {
+    color: #00F;
+}
+.link-del {
+    color: #A00;
+}
+a.link-del:hover {
+    color: #F00;
+}
+
+.link-add {
+    color: #0A0;
+}
+a.link-add:hover {
+    color: #0C0;
+}
+
 .center-block {float: none !important}

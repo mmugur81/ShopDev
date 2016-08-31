@@ -19,13 +19,40 @@
     <tbody>
     <c:forEach items="${categories}" var="category">
       <tr>
-        <td><a href="${contextPath}/admin/category/${category.id}"><span class="glyphicon glyphicon-edit"></span> ${category.name}</a></td>
+        <td>
+          <a href="${contextPath}/admin/category/edit/${category.id}" class="link-edit">
+            <span class="glyphicon glyphicon-edit"></span> ${category.name}
+          </a>
+          <a href="#" onclick="promptDelLink(${category.id})" class="link-del" style="float: right">
+            <span class="glyphicon glyphicon-remove"></span>
+          </a>
+        </td>
         <td>${category.description}</td>
         <td>${category.getParentCategoryName()}</td>
       </tr>
 	</c:forEach>
     </tbody>
   </table>
+  
+  <div>
+    <a href="${contextPath}/admin/category/edit/" class="link-add">
+      <span class="glyphicon glyphicon-plus"></span> Add new category
+  </div>
 </div>
 
+<form id="frm-del" method="POST">
+  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+</form>
+
 <%@ include file="../../footer.jsp" %>
+
+<script lang="javascript">
+function promptDelLink(catId) {
+	var baseUrl = "${contextPath}/admin/category/del/";
+	var msg = "Are you sure you want to delete?";
+    if (confirm(msg) == true) {
+    	$("#frm-del").attr("action", baseUrl + catId);
+    	$('#frm-del').submit();
+    }
+}
+</script>
