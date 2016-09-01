@@ -10,6 +10,7 @@
 <s:message code="admin.category.description" var="lblDescription"/>
 <s:message code="admin.category.parent_category" var="lblParentCategory"/>
 <s:message code="None" var="lblNone"/>
+<s:message code="Back" var="lblBack"/>
 
 <div class="container">
 
@@ -42,7 +43,10 @@
             </div>
         </s:bind>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">
+        <button class="btn btn-lg float-left" type="button" onClick="window.location='${contextPath}/admin/category/'">
+            ${lblBack}
+        </button>
+        <button class="btn btn-lg btn-primary float-right" type="submit">
             ${lblSubmit}
         </button>
     </f:form>
