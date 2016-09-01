@@ -1,19 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
-<c:set var="pageTitle" value="Admin index"/>
+<s:message code="admin.category.list.title" var="pageTitle" />
 <%@ include file="../../header.jsp" %>
 
+<s:message code="admin.category.name" var="lblName"/>
+<s:message code="admin.category.description" var="lblDescription"/>
+<s:message code="admin.category.parent_category" var="lblParentCategory"/>
+<s:message code="admin.category.list.add_new" var="lblAddNew"/>
+<s:message code="admin.category.list.confirm_delete" var="msgConfirmDelete"/>
+
 <div class="container">
-  <h2>Categories</h2>
+  <h2>${pageTitle}</h2>
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Parent category</th>
+        <th>${lblName}</th>
+        <th>${lblDescription}</th>
+        <th>${lblParentCategory}</th>
       </tr>
     </thead>
     <tbody>
@@ -36,7 +43,7 @@
   
   <div>
     <a href="${contextPath}/admin/category/edit/" class="link-add">
-      <span class="glyphicon glyphicon-plus"></span> Add new category
+      <span class="glyphicon glyphicon-plus"></span> ${lblAddNew}
   </div>
 </div>
 
@@ -49,7 +56,7 @@
 <script lang="javascript">
 function promptDelLink(catId) {
 	var baseUrl = "${contextPath}/admin/category/del/";
-	var msg = "Are you sure you want to delete?";
+	var msg = "${msgConfirmDelete}";
     if (confirm(msg) == true) {
     	$("#frm-del").attr("action", baseUrl + catId);
     	$('#frm-del').submit();
