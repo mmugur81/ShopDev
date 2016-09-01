@@ -4,7 +4,6 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
-<s:message code="admin.category.add.title" var="pageTitle" />
 <%@ include file="../../header.jsp" %>
 
 <s:message code="admin.category.name" var="lblName"/>
@@ -37,14 +36,14 @@
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <f:select path="parentCategory" rows="5" class="form-control">
                     <f:option value="" label="--- ${lblNone} ---" />
-                    <f:options items="${categories}" />
+                    <f:options items="${categories}" itemValue="id" itemLabel="name" />
                 </f:select>
                 <f:errors path="parentCategory" />
             </div>
         </s:bind>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">
-            <s:message code="admin.category.add.submit"/>
+            ${lblSubmit}
         </button>
     </f:form>
 

@@ -37,10 +37,10 @@ public class DemoController {
         userService.addRole(user, UserRole.Role.ADMIN);
         System.out.println("Has role ADDMIN? "+user.hasRole(UserRole.Role.ADMIN));
 
-        //Category cat1 = categoryService.add("Telefoane");
-        //Category cat2 = categoryService.add("Samsung", cat1);
-        //Category cat3 = categoryService.add("Apple", cat1);
-        //Category cat4 = categoryService.add("S3", 3);
+        //Category cat1 = categoryService.save("Telefoane");
+        //Category cat2 = categoryService.save("Samsung", cat1);
+        //Category cat3 = categoryService.save("Apple", cat1);
+        //Category cat4 = categoryService.save("S3", 3);
 
         //Category cat1 = categoryService.get(2);
 

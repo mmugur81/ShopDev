@@ -43,7 +43,7 @@ public class CategoryService {
         return categoryRepo.saveAndFlush(category);
     }
 
-    public Category add(Category category) {
+    public Category save(Category category) {
         return categoryRepo.saveAndFlush(category);
     }
 
@@ -53,20 +53,6 @@ public class CategoryService {
 
     public List<Category> getAllCategories() {
         return categoryRepo.findAll();
-    }
-
-    /**
-     * Generates a map for id and name
-     * @return
-     */
-    public Map<Long, String> getAllCategoriesIdValueMap() {
-        Map<Long, String> categoryMap = new LinkedHashMap<>();
-        List<Category> categories = categoryRepo.findAll();
-
-        for (Category cat : categories) {
-            categoryMap.put(cat.getId(), cat.getName());
-        }
-        return categoryMap;
     }
 
     public void delete(long id) {
