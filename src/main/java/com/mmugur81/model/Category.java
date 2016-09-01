@@ -1,6 +1,7 @@
 package com.mmugur81.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -11,6 +12,8 @@ import java.util.List;
 @Entity(name = "categories")
 public class Category extends BaseModel {
 
+    @Size(min=3, max=30)
+    @Column(length = 30)
     private String name;
 
     @Lob

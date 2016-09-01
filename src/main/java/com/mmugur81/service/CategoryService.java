@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Mugurel on 13.08.2016.
@@ -41,12 +43,30 @@ public class CategoryService {
         return categoryRepo.saveAndFlush(category);
     }
 
+    public Category add(Category category) {
+        return categoryRepo.saveAndFlush(category);
+    }
+
     public Category get(long id) {
         return categoryRepo.findOne(id);
     }
 
     public List<Category> getAllCategories() {
         return categoryRepo.findAll();
+    }
+
+    /**
+     * Generates a map for id and name
+     * @return
+     */
+    public Map<Long, String> getAllCategoriesIdValueMap() {
+        Map<Long, String> categoryMap = new LinkedHashMap<>();
+        List<Category> categories = categoryRepo.findAll();
+
+        for (Category cat : categories) {
+            categoryMap.put(cat.getId(), cat.getName());
+        }
+        return categoryMap;
     }
 
     public void delete(long id) {
