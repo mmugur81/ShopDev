@@ -49,6 +49,10 @@ public class CategoryService {
         return categoryRepo.findAll();
     }
 
+    public void delete(long id) {
+        categoryRepo.delete(id);
+    }
+
     // Redundant
     public List<Category> getAllSubCategories(long id) {
         Category parentCategory = categoryRepo.findOne(id);

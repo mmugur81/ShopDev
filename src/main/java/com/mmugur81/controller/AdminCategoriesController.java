@@ -5,6 +5,7 @@ import com.mmugur81.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -33,5 +34,17 @@ public class AdminCategoriesController {
         model.addAttribute("categories", categories);
 
         return "/admin/category/list";
+    }
+
+    @RequestMapping(value = "/del/{id}", method = RequestMethod.POST)
+    public String delete(@PathVariable long id) {
+        Category cat = categoryService.get(id);
+
+        if (cat == null) {
+            return "redirect:/admin/category/?err_del=1";
+        } else {
+            categoryService.delete(id);
+            return "redirect:/admin/category/";
+        }
     }
 }
