@@ -63,9 +63,11 @@ public class AdminCategoriesController {
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String add(
        @ModelAttribute("categoryForm") @Valid Category category,
-       BindingResult bindingResult
+       BindingResult bindingResult,
+       Model model
     ) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryService.getAllCategoriesIdValueMap());
             return "/admin/category/edit";
         }
         Category addedCategory = categoryService.add(category);
@@ -73,6 +75,7 @@ public class AdminCategoriesController {
         if (addedCategory == null) {
             // Set some error
             bindingResult.addError(new ObjectError("categoryForm", "Could not save to DB"));
+            model.addAttribute("categories", categoryService.getAllCategoriesIdValueMap());
             return "/admin/category/edit";
         }
         else {
