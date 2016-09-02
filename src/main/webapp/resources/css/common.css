@@ -36,6 +36,12 @@ body {
     border-bottom-left-radius: 0;
 }
 
+.form-signin select {
+    margin-top: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
 .form-signin button {
     margin-top: 10px;
 }

@@ -18,7 +18,6 @@ public class Product extends BaseModel {
     @JoinColumn(name = "id_category", foreignKey = @ForeignKey(name = "fk_products_categories_id"))
     private Category category;
 
-    @NotNull
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "id_user", foreignKey = @ForeignKey(name = "fk_products_users_id"))
     private User user;

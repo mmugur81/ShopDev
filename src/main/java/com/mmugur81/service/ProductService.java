@@ -69,6 +69,13 @@ public class ProductService {
         return productRepo.saveAndFlush(product);
     }
 
+    public Product save(Product product, User user) {
+        if (product.getUser() == null) {
+            product.setUser(user);
+        }
+        return productRepo.saveAndFlush(product);
+    }
+
     public void delete(Product product) {
         productRepo.delete(product);
     }
