@@ -15,7 +15,7 @@
 	    <div class="panel-body">
 	    <ul>
 	        <li><a href="${contextPath}/admin/category/">Categories</a></li>
-	        <li><a href="${contextPath}/admin/products/">Products</a></li>
+	        <li><a href="${contextPath}/admin/product/">Products</a></li>
 	    </ul>
 	    </div>
 	</div>
