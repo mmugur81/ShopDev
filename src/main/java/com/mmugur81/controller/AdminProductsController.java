@@ -68,7 +68,7 @@ public class AdminProductsController {
         }
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add(Model model, HttpServletRequest request) {
 
         model.addAttribute("pageTitle", ms.getMessage("admin.product.add.title", null, request.getLocale()));
@@ -80,7 +80,7 @@ public class AdminProductsController {
         return "/admin/product/edit";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String add(
             @Valid @ModelAttribute("productForm") Product product,
             BindingResult bindingResult,

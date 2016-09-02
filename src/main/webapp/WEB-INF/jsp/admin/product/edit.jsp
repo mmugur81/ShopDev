@@ -19,12 +19,6 @@
     <f:form method="POST" modelAttribute="productForm" class="form-signin">
         <h2 class="form-signin-heading">${pageTitle}</h2>
         
-        <s:bind path="*">
-            <div class="form-group ${status.error ? 'has-error' : ''}">
-                <f:errors path="*" />
-            </div>
-        </s:bind>
-        
         <s:bind path="name">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <f:input type="text" path="name" class="form-control" autofocus="true"

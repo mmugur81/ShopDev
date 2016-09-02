@@ -56,7 +56,7 @@ public class AdminCategoriesController {
         }
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String add(Model model, HttpServletRequest request) {
         model.addAttribute("pageTitle", ms.getMessage("admin.category.add.title", null, request.getLocale()));
         model.addAttribute("lblSubmit", ms.getMessage("admin.category.add.submit", null, request.getLocale()));
@@ -66,7 +66,7 @@ public class AdminCategoriesController {
         return "/admin/category/edit";
     }
 
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String add(
        @ModelAttribute("categoryForm") @Valid Category category,
        BindingResult bindingResult,

@@ -42,7 +42,7 @@
   </table>
   
   <div>
-    <a href="${contextPath}/admin/category/edit/" class="link-add">
+    <a href="${contextPath}/admin/category/add" class="link-add">
       <span class="glyphicon glyphicon-plus"></span> ${lblAddNew}
   </div>
 </div>

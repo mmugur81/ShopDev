@@ -48,7 +48,7 @@
   </table>
   
   <div>
-    <a href="${contextPath}/admin/product/edit/" class="link-add">
+    <a href="${contextPath}/admin/product/add" class="link-add">
       <span class="glyphicon glyphicon-plus"></span> ${lblAddNew}
   </div>
 </div>
