@@ -1,6 +1,8 @@
 package com.mmugur81.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by Mugurel on 16.08.2016.
@@ -11,15 +13,19 @@ import javax.persistence.*;
 @Table(name = "products")
 public class Product extends BaseModel {
 
+    @NotNull
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "id_category", foreignKey = @ForeignKey(name = "fk_products_categories_id"))
     private Category category;
 
+    @NotNull
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "id_user", foreignKey = @ForeignKey(name = "fk_products_users_id"))
     private User user;
 
-    private String title;
+    @Size(min=3, max=30)
+    @Column(length = 30)
+    private String name;
 
     @Column(columnDefinition="TEXT")
     private String description;
@@ -31,8 +37,8 @@ public class Product extends BaseModel {
 
     public Product() { }
 
-    public Product(String title, Category category, User user) {
-        this.title = title;
+    public Product(String name, Category category, User user) {
+        this.name = name;
         this.category = category;
         this.user = user;
     }
@@ -55,12 +61,12 @@ public class Product extends BaseModel {
         this.user = user;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {

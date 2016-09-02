@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Mugurel on 16.08.2016.
  * Product Service
@@ -53,5 +55,21 @@ public class ProductService {
 
     public Product get(long id) {
         return productRepo.findOne(id);
+    }
+
+    public List<Product> getAllProducts() {
+        return productRepo.findAll();
+    }
+
+    public List<Product> getAllProducts(Category category) {
+        return productRepo.findByCategory(category);
+    }
+
+    public Product save(Product product) {
+        return productRepo.saveAndFlush(product);
+    }
+
+    public void delete(Product product) {
+        productRepo.delete(product);
     }
 }

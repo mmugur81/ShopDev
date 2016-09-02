@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Properties;
 
 /**
@@ -18,6 +20,7 @@ public class Price {
 
     private double price;
 
+    @Size(min = 3, max = 3)
     @Enumerated(EnumType.STRING)
     @Column(length = 3, columnDefinition = "CHAR(3)")
     private Currency currency;
