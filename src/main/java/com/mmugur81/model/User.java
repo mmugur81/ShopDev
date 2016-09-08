@@ -132,7 +132,10 @@ public class User extends BaseModel {
     }
 
     public void addRole(UserRole.Role role) {
-        this.userRoles.add(new UserRole(this, role));
+        // Prevent duplicates
+        if (!this.hasRole(role)) {
+            this.userRoles.add(new UserRole(this, role));
+        }
     }
 
     public boolean hasRole(UserRole.Role role) {
