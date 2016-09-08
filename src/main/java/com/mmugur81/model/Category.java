@@ -19,7 +19,7 @@ public class Category extends BaseModel {
     @Lob
     private String description;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_category_parent", foreignKey = @ForeignKey(name = "fk_categories_category_id"))
     private Category parentCategory;
 
