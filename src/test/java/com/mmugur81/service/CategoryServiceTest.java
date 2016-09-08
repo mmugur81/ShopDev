@@ -1,8 +1,6 @@
 package com.mmugur81.service;
 
-import com.mmugur81.ShopDevApplication;
 import com.mmugur81.model.Category;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
-
+import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -33,8 +31,11 @@ public class CategoryServiceTest {
 
     @Test
     public void addSimpleCategoryTest() {
-        // Given When
-        Category addedCategory = categoryService.add(catName);
+        // Given
+        Category category = new Category(catName);
+
+        // When
+        Category addedCategory = categoryService.save(category);
 
         // Then
         assertThat(addedCategory, hasProperty("name", equalTo(catName)));
@@ -100,5 +101,30 @@ public class CategoryServiceTest {
         assertThat(savedCategory, equalTo(loadedCategory));
     }
 
-    // TODO test for children categories
+    @Test
+    public void getAllCategoriesTest() {
+        // Given
+        Category cat1 = categoryService.save(new Category(parentCatName));
+        Category cat2 = categoryService.save(new Category(catName));
+
+        // When
+        List<Category> categories = categoryService.getAllCategories();
+
+        // Then
+        assertThat(categories, hasItem(cat1));
+        assertThat(categories, hasItem(cat2));
+    }
+
+    @Test
+    public void deleteCategoryTest() {
+        // Given
+        Category cat1 = categoryService.save(new Category(catName));
+
+        // When
+        categoryService.delete(cat1.getId());
+        Category cat2 = categoryService.get(cat1.getId());
+
+        // Then
+        assertThat(cat2, nullValue());
+    }
 }
