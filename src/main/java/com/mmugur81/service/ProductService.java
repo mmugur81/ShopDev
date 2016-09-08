@@ -37,6 +37,10 @@ public class ProductService {
         this.defaultCurrency = defaultCurrency;
     }
 
+    public Currency getDefaultCurrency() {
+        return defaultCurrency;
+    }
+
     /******************************************************************************************************************/
 
     public Product createProduct(String title, Category category, User user) {
