@@ -26,7 +26,7 @@ public class Product extends BaseModel {
     @Column(length = 30)
     private String name;
 
-    @Column(columnDefinition="TEXT")
+    @Lob
     private String description;
 
     @Embedded
