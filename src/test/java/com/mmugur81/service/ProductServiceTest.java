@@ -1,9 +1,6 @@
 package com.mmugur81.service;
 
-import com.mmugur81.model.Category;
-import com.mmugur81.model.Price;
-import com.mmugur81.model.Product;
-import com.mmugur81.model.User;
+import com.mmugur81.model.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,7 +43,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void testAddProduct() {
+    public void addProductTest() {
         // Given
         Product product = new Product("Product 1", cat1, user);
         Price price = new Price(10.50, productService.getDefaultCurrency());
@@ -62,5 +59,64 @@ public class ProductServiceTest {
 
         assertThat(savedPrice, hasProperty("price", equalTo(price.getPrice())));
         assertThat(savedPrice, hasProperty("currency", equalTo(price.getCurrency())));
+    }
+
+    @Test
+    public void getProductTest() {
+        // Given
+        Product product = new Product("Product 1", cat1, user);
+        Price price = new Price(10.50, productService.getDefaultCurrency());
+        product.setPrice(price);
+        product.setDescription("some random description");
+        product = productService.save(product, user);
+
+        // When
+        Product loadedProduct = productService.get(product.getId());
+        Price loadedPrice = loadedProduct.getPrice();
+
+        // Then
+        assertThat(loadedProduct, hasProperty("name", equalTo(product.getName())));
+        assertThat(loadedProduct, hasProperty("description", equalTo(product.getDescription())));
+
+        assertThat(loadedPrice, hasProperty("price", equalTo(price.getPrice())));
+        assertThat(loadedPrice, hasProperty("currency", equalTo(price.getCurrency())));
+    }
+
+    @Test
+    public void updateProductTest() {
+        // Given
+        Product product = new Product("Product 1", cat1, user);
+        product.setPrice(new Price(10.50, productService.getDefaultCurrency()));
+        product = productService.save(product, user);
+
+        // When
+        String newName = "Product Updated";
+        Price newPrice = new Price(9.99, Currency.EUR);
+        product.setName(newName);
+        product.setPrice(newPrice);
+
+        Product updatedProduct = productService.save(product, user);
+        Price updatedPrice = updatedProduct.getPrice();
+
+        // Then
+        assertThat(updatedProduct, hasProperty("name", equalTo(newName)));
+
+        assertThat(updatedPrice, hasProperty("price", equalTo(newPrice.getPrice())));
+        assertThat(updatedPrice, hasProperty("currency", equalTo(newPrice.getCurrency())));
+    }
+
+    @Test
+    public void deleteProductTest() {
+        // Given
+        Product product = new Product("Product 1", cat1, user);
+        product.setPrice(new Price(10.50, productService.getDefaultCurrency()));
+        product = productService.save(product, user);
+
+        // When
+        productService.delete(product);
+        Product deletedProduct = productService.get(product.getId());
+
+        // Then
+        assertThat(deletedProduct, nullValue());
     }
 }
