@@ -54,6 +54,7 @@ public class ProductServiceTest {
         Price savedPrice = savedProduct.getPrice();
 
         // Then
+        assertThat(savedProduct, hasProperty("id", greaterThan(0L)));
         assertThat(savedProduct, hasProperty("name", equalTo(product.getName())));
         assertThat(savedProduct, hasProperty("description", equalTo(product.getDescription())));
 
