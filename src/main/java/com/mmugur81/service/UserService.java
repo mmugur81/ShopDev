@@ -77,4 +77,13 @@ public class UserService {
     public User get(long id) {
         return userRepo.findOne(id);
     }
+
+    public User disable(User user) {
+        user.setStatus(User.Status.Disabled);
+
+        // "Disable" email to allow registering the same email for a new account
+        user.setEmail(user.getEmail() + "_dsbld_" + Long.toString(user.getId()));
+
+        return userRepo.saveAndFlush(user);
+    }
 }
