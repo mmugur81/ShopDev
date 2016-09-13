@@ -2,6 +2,7 @@ package com.mmugur81.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class Order extends BaseModel {
 
     private Date payDate;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 
     /******************************************************************************************************************/
@@ -48,6 +49,13 @@ public class Order extends BaseModel {
     public Order() {
         this.status = Status.Pending;
         this.payed = false;
+        this.orderItems = new ArrayList<>();
+    }
+
+    public Order(User user, Currency currency) {
+        this();
+        this.user = user;
+        this.setTotal(new Price(0L, currency));
     }
 
     /******************************************************************************************************************/
@@ -98,5 +106,23 @@ public class Order extends BaseModel {
 
     public void setPayDate(Date payDate) {
         this.payDate = payDate;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public synchronized void addProductItem(Product product) {
+        short itemNumber = (short) (this.orderItems.size() + 1);
+
+        OrderItem orderItem = new OrderItem(this, itemNumber, product);
+
+        this.orderItems.add(orderItem);
+
+        this.total.add(product.getPrice());
     }
 }

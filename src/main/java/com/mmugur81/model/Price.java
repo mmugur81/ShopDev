@@ -52,4 +52,18 @@ public class Price {
         this.currency = currency;
     }
 
+    public void add(Price p) {
+        if (p.currency != this.currency) {
+            throw new IllegalArgumentException("Currencies don't match");
+        }
+        this.price += p.getPrice();
+    }
+
+    public void subtract(Price p) {
+        if (p.currency != this.currency) {
+            throw new IllegalArgumentException("Currencies don't match");
+        }
+        this.price -= p.getPrice();
+    }
+
 }
