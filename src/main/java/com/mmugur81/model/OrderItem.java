@@ -38,4 +38,58 @@ public class OrderItem {
     @NotNull
     @Embedded
     private Price price;
+
+    /******************************************************************************************************************/
+
+    public OrderItem() {
+    }
+
+    public OrderItem(Order order, short itemNumber, Product product) {
+        this.order = order;
+        this.itemNumber = itemNumber;
+        this.product = product;
+        this.price = product.getPrice();
+    }
+
+    /******************************************************************************************************************/
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public short getItemNumber() {
+        return itemNumber;
+    }
+
+    public void setItemNumber(short itemNumber) {
+        this.itemNumber = itemNumber;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Price getPrice() {
+        return price;
+    }
+
+    public void setPrice(Price price) {
+        this.price = price;
+    }
 }
