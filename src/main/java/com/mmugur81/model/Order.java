@@ -116,7 +116,7 @@ public class Order extends BaseModel {
         this.orderItems = orderItems;
     }
 
-    public synchronized void addProductItem(Product product) {
+    public synchronized short addProductItem(Product product) {
         short itemNumber = (short) (this.orderItems.size() + 1);
 
         OrderItem orderItem = new OrderItem(this, itemNumber, product);
@@ -124,5 +124,29 @@ public class Order extends BaseModel {
         this.orderItems.add(orderItem);
 
         this.total.add(product.getPrice());
+
+        return itemNumber;
+    }
+
+    public synchronized boolean removeProductItem(short itemNumber) {
+        OrderItem toBeRemoved = null;
+        for (OrderItem item : this.orderItems) {
+            if (item.getItemNumber() == itemNumber) {
+                toBeRemoved = item;
+                break;
+            }
+        }
+        if (toBeRemoved != null) {
+            this.orderItems.remove(toBeRemoved);
+            this.total.subtract(toBeRemoved.getPrice());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void registerPayment() {
+        this.setPayed(true);
+        this.setPayDate(new Date());
     }
 }
