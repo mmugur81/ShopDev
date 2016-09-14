@@ -4,10 +4,7 @@ import com.mmugur81.REST_model.RestOrder;
 import com.mmugur81.model.Order;
 import com.mmugur81.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Mugurel on 14.09.2016.
@@ -31,4 +28,9 @@ public class RestOrderController {
         return order.getRestOrder();
     }
 
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    public boolean put(@RequestBody final RestOrder restOrder) {
+        //TODO Validate input
+        return false;
+    }
 }
