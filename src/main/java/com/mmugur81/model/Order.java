@@ -1,5 +1,6 @@
 package com.mmugur81.model;
 
+import com.mmugur81.REST_model.RestOrder;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -56,6 +57,28 @@ public class Order extends BaseModel {
         this();
         this.user = user;
         this.setTotal(new Price(0L, currency));
+    }
+
+    public RestOrder getRestOrder() {
+        RestOrder restOrder = new RestOrder();
+
+        restOrder.setId(this.getId());
+        restOrder.setUserId(this.user.getId());
+        restOrder.setTotal(this.total);
+        restOrder.setStatus(this.status);
+        restOrder.setNotes(this.notes);
+        restOrder.setPayed(this.payed);
+        restOrder.setPayDate(this.payDate);
+
+        for (OrderItem orderItem : this.orderItems) {
+            restOrder.addOrderItem(
+                orderItem.getItemNumber(),
+                orderItem.getProduct().getRestProduct(),
+                orderItem.getPrice()
+            );
+        }
+
+        return restOrder;
     }
 
     /******************************************************************************************************************/

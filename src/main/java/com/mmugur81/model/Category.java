@@ -1,5 +1,6 @@
 package com.mmugur81.model;
 
+import com.mmugur81.REST_model.RestCategory;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -37,6 +38,10 @@ public class Category extends BaseModel {
     public Category(String name, Category parentCategory) {
         this(name);
         this.parentCategory = parentCategory;
+    }
+
+    public RestCategory getRestCategory() {
+        return new RestCategory(this.getId(), this.name);
     }
 
     /******************************************************************************************************************/
