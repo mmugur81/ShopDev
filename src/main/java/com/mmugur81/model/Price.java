@@ -18,6 +18,7 @@ import java.util.Properties;
 @Embeddable
 public class Price {
 
+    @Column(precision = 10, scale = 2)
     private double price;
 
     @Size(min = 3, max = 3)
@@ -64,6 +65,8 @@ public class Price {
             throw new IllegalArgumentException("Currencies don't match");
         }
         this.price -= p.getPrice();
+        // Handle java issues with double numbers
+        this.price = (double) Math.round(this.price * 100d) / 100d;
     }
 
 }
