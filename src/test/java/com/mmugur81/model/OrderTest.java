@@ -56,16 +56,15 @@ public class OrderTest {
         order.addProductItem(p2);
 
         // Then
+        double expectedPrice = p1.getPriceValue() + p2.getPriceValue();
         List<OrderItem> orderItems = order.getOrderItems();
-
         List<Product> products = new ArrayList<>();
-        // extract products from orderItems
         products.addAll(orderItems.stream().map(OrderItem::getProduct).collect(Collectors.toList()));
 
         assertThat(orderItems, hasSize(2));
         assertThat(products, hasItem(p1));
         assertThat(products, hasItem(p2));
-        assertThat(order.getTotal(), hasProperty("price", equalTo(154.99)));
+        assertThat(order.getTotal(), hasProperty("price", equalTo(expectedPrice)));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -109,7 +108,7 @@ public class OrderTest {
         assertThat(orderItems, hasSize(1));
         assertThat(products, not(hasItem(p1)));
         assertThat(products, hasItem(p2));
-        assertThat(order.getTotal(), hasProperty("price", equalTo(p2.getPrice().getPrice())));
+        assertThat(order.getTotal(), hasProperty("price", equalTo(p2.getPriceValue())));
     }
 
     @Test
@@ -134,7 +133,7 @@ public class OrderTest {
         Assert.assertFalse(removedOk);
         assertThat(orderItems, hasSize(1));
         assertThat(products, hasItem(p1));
-        assertThat(order.getTotal(), hasProperty("price", equalTo(p1.getPrice().getPrice())));
+        assertThat(order.getTotal(), hasProperty("price", equalTo(p1.getPriceValue())));
     }
 
     @Test
