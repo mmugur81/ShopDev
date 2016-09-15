@@ -53,7 +53,7 @@ public class OrderService {
         return orderRepository.findOne(id);
     }
 
-    public Order addProductItem(Long orderId, Long productId) {
+    public short addProductItem(Long orderId, Long productId) {
         Order order = orderRepository.findOne(orderId);
         if (order == null) {
             throw new NullPointerException("Order with id "+orderId+" not found!");
@@ -64,15 +64,17 @@ public class OrderService {
             throw new NullPointerException("Product with id "+productId+" not found!");
         }
 
-        order.addProductItem(product);
-        return orderRepository.saveAndFlush(order);
+        short itemNumber = order.addProductItem(product);
+        orderRepository.saveAndFlush(order);
+
+        return itemNumber;
     }
 
     public Order save(Order order) {
         return orderRepository.saveAndFlush(order);
     }
 
-    public boolean removeItem(Long orderId, short itemNumber) {
+    public boolean removeProductItem(Long orderId, short itemNumber) {
         Order order = orderRepository.findOne(orderId);
         if (order == null) {
             throw new NullPointerException("Order with id "+orderId+" not found!");

@@ -83,4 +83,8 @@ public class Product extends BaseModel {
     public void setPrice(Price price) {
         this.price = price;
     }
+
+    public double getPriceValue() {
+        return this.price.getPrice();
+    }
 }
