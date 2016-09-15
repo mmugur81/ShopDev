@@ -53,7 +53,7 @@ public class OrderService {
         return orderRepository.findOne(id);
     }
 
-    public Order addOrderProduct(Long orderId, Long productId) {
+    public Order addProductItem(Long orderId, Long productId) {
         Order order = orderRepository.findOne(orderId);
         if (order == null) {
             throw new NullPointerException("Order with id "+orderId+" not found!");
