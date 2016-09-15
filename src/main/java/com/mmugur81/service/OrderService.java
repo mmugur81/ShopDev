@@ -71,4 +71,48 @@ public class OrderService {
     public Order save(Order order) {
         return orderRepository.saveAndFlush(order);
     }
+
+    public boolean removeItem(Long orderId, short itemNumber) {
+        Order order = orderRepository.findOne(orderId);
+        if (order == null) {
+            throw new NullPointerException("Order with id "+orderId+" not found!");
+        }
+
+        boolean success = order.removeProductItem(itemNumber);
+        if (success) {
+            orderRepository.saveAndFlush(order);
+        }
+
+        return success;
+    }
+
+    public void confirmOrder(Long orderId) {
+        Order order = orderRepository.findOne(orderId);
+        if (order == null) {
+            throw new NullPointerException("Order with id "+orderId+" not found!");
+        }
+
+        order.setStatus(Order.Status.Confirmed);
+        orderRepository.saveAndFlush(order);
+    }
+
+    public void cancelOrder(Long orderId) {
+        Order order = orderRepository.findOne(orderId);
+        if (order == null) {
+            throw new NullPointerException("Order with id "+orderId+" not found!");
+        }
+
+        order.setStatus(Order.Status.Cancelled);
+        orderRepository.saveAndFlush(order);
+    }
+
+    public void registerPayment(Long orderId) {
+        Order order = orderRepository.findOne(orderId);
+        if (order == null) {
+            throw new NullPointerException("Order with id "+orderId+" not found!");
+        }
+
+        order.registerPayment();
+        orderRepository.saveAndFlush(order);
+    }
 }
