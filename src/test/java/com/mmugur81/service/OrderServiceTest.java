@@ -1,5 +1,9 @@
 package com.mmugur81.service;
 
+import com.mmugur81.REST_model.RestCategory;
+import com.mmugur81.REST_model.RestOrder;
+import com.mmugur81.REST_model.RestOrderItem;
+import com.mmugur81.REST_model.RestProduct;
 import com.mmugur81.model.*;
 import org.junit.Assert;
 import org.junit.Before;
@@ -222,6 +226,64 @@ public class OrderServiceTest {
         // Then
         assertThat(order, hasProperty("payed", equalTo(true)));
         assertThat(order, hasProperty("payDate", greaterThanOrEqualTo(now)));
+    }
+
+    @Test
+    public void getRestOrderTest() {
+        // Given - order created in before(); also add 2 products
+        orderService.addProductItem(order.getId(), p1.getId());
+        orderService.addProductItem(order.getId(), p2.getId());
+
+        // When
+        RestOrder restOrder = order.getRestOrder();
+
+        // Then
+        assertThat(restOrder, hasProperty("id", equalTo(order.getId())));
+        assertThat(restOrder, hasProperty("userId", equalTo(order.getUser().getId())));
+        assertThat(restOrder, hasProperty("status", equalTo(order.getStatus())));
+        assertThat(restOrder, hasProperty("notes", equalTo(order.getNotes())));
+        assertThat(restOrder, hasProperty("payed", equalTo(order.isPayed())));
+        assertThat(restOrder, hasProperty("payDate", equalTo(order.getPayDate())));
+
+        // Check total
+        Price total = restOrder.getTotal();
+        assertThat(total, hasProperty("price", equalTo(order.getTotal().getPrice())));
+        assertThat(total, hasProperty("currency", equalTo(order.getTotal().getCurrency())));
+
+        // Check items
+        List<RestOrderItem> orderItems = restOrder.getOrderItems();
+        List<RestProduct> products = new ArrayList<>();
+        products.addAll(orderItems.stream().map(RestOrderItem::getProduct).collect(Collectors.toList()));
+        RestProduct rp1 = orderItems.get(0).getProduct();
+        RestProduct rp2 = orderItems.get(1).getProduct();
+
+        assertThat(orderItems, hasSize(2));
+        assertThat(products, hasItem(rp1));
+        assertThat(products, hasItem(rp2));
+
+        // p1
+        assertThat(rp1, hasProperty("id", equalTo(p1.getId())));
+        assertThat(rp1, hasProperty("name", equalTo(p1.getName())));
+        // p1 - category
+        RestCategory rp1Categ = rp1.getCategory();
+        assertThat(rp1Categ, hasProperty("id", equalTo(p1.getCategory().getId())));
+        assertThat(rp1Categ, hasProperty("name", equalTo(p1.getCategory().getName())));
+        //p1 - price
+        Price rp1Price = rp1.getPrice();
+        assertThat(rp1Price, hasProperty("price", equalTo(p1.getPriceValue())));
+        assertThat(rp1Price, hasProperty("currency", equalTo(p1.getPrice().getCurrency())));
+
+        // p2
+        assertThat(rp2, hasProperty("id", equalTo(p2.getId())));
+        assertThat(rp2, hasProperty("name", equalTo(p2.getName())));
+        // p2 - category
+        RestCategory rp2Categ = rp2.getCategory();
+        assertThat(rp1Categ, hasProperty("id", equalTo(p2.getCategory().getId())));
+        assertThat(rp1Categ, hasProperty("name", equalTo(p2.getCategory().getName())));
+        //p1 - price
+        Price rp2Price = rp2.getPrice();
+        assertThat(rp2Price, hasProperty("price", equalTo(p2.getPriceValue())));
+        assertThat(rp2Price, hasProperty("currency", equalTo(p2.getPrice().getCurrency())));
     }
 
     // Fail tests for invalid order id ---------------------------------------------------------------------------------
