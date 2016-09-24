@@ -3,6 +3,8 @@ package com.mmugur81.REST_model;
 import com.mmugur81.model.Order;
 import com.mmugur81.model.Price;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +17,7 @@ public class RestOrder {
 
     private long id;
 
+    @Min(1)
     private long userId;
 
     private Price total;
@@ -27,6 +30,7 @@ public class RestOrder {
 
     private Date payDate;
 
+    @NotNull
     private List<RestOrderItem> orderItems;
 
     /******************************************************************************************************************/
