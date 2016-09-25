@@ -4,11 +4,13 @@ import com.mmugur81.REST_model.RestOrder;
 import com.mmugur81.REST_model.RestResponse;
 import com.mmugur81.model.Order;
 import com.mmugur81.service.OrderService;
+import org.omg.CORBA.Object;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -26,6 +28,16 @@ public class RestOrderController {
     public RestOrderController(OrderService orderService) {
         this.orderService = orderService;
     }
+
+    @ExceptionHandler(Throwable.class)
+    @ResponseBody
+    RestResponse<Object> handleControllerException(HttpServletRequest req, Throwable ex) {
+        RestResponse<Object> resp = new RestResponse<>(false);
+        resp.addError(ex.getMessage());
+        return resp;
+    }
+
+    /******************************************************************************************************************/
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public RestResponse<RestOrder> get(@PathVariable("id") long id) {
