@@ -2,6 +2,8 @@ package com.mmugur81.REST_model;
 
 import com.mmugur81.model.Order;
 import com.mmugur81.model.Price;
+import com.mmugur81.validator.RestOrderValid;
+import com.mmugur81.validator.UserExists;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -13,11 +15,14 @@ import java.util.List;
  * Created by Mugurel on 14.09.2016.
  * REST Order model
  */
+
+@RestOrderValid
 public class RestOrder {
 
     private long id;
 
     @Min(1)
+    @UserExists
     private long userId;
 
     private Price total;
