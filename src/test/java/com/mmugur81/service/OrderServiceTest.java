@@ -286,6 +286,33 @@ public class OrderServiceTest {
         assertThat(rp2Price, hasProperty("currency", equalTo(p2.getPrice().getCurrency())));
     }
 
+    @Test
+    public void convertFromRestOrderTest() {
+        // Given
+        RestOrder restOrder = new RestOrder();
+        restOrder.setUserId(user.getId());
+        restOrder.addOrderItem((short) 1, p1.getRestProduct(), p1.getPrice());
+        restOrder.addOrderItem((short) 2, p2.getRestProduct(), p2.getPrice());
+
+        // When
+        Order order = orderService.convertFromRestOrder(restOrder);
+
+        // Then
+        double expectedPrice = p1.getPriceValue() + p2.getPriceValue();
+        List<OrderItem> orderItems = order.getOrderItems();
+        List<Product> products = new ArrayList<>();
+        products.addAll(orderItems.stream().map(OrderItem::getProduct).collect(Collectors.toList()));
+
+        assertThat(order, hasProperty("user", equalTo(user)));
+
+        assertThat(order.getTotal(), hasProperty("price", equalTo(expectedPrice)));
+        assertThat(order.getTotal(), hasProperty("currency", equalTo(p1.getPrice().getCurrency())));
+
+        assertThat(orderItems, hasSize(2));
+        assertThat(products, hasItem(p1));
+        assertThat(products, hasItem(p2));
+    }
+
     // Fail tests for invalid order id ---------------------------------------------------------------------------------
 
     @Test

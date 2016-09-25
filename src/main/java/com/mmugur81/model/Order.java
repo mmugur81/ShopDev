@@ -140,6 +140,11 @@ public class Order extends BaseModel {
     }
 
     public synchronized short addProductItem(Product product) {
+        // Set currency and price if necessary
+        if (this.total == null) {
+            this.total = new Price(0L, product.getPrice().getCurrency());
+        }
+
         short itemNumber = (short) (this.orderItems.size() + 1);
 
         OrderItem orderItem = new OrderItem(this, itemNumber, product);

@@ -69,8 +69,13 @@ public class RestOrderController {
             }
         }
         else {
+            // Add & save order
+            Order order = this.orderService.convertFromRestOrder(restOrder);
+            order = this.orderService.save(order);
+
+            // Return the real order converted back to RestOrder
             resp.setSuccess(true);
-            resp.setData(restOrder);
+            resp.setData(order.getRestOrder());
         }
 
         return resp;

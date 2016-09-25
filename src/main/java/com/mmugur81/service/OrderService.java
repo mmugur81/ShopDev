@@ -1,5 +1,7 @@
 package com.mmugur81.service;
 
+import com.mmugur81.REST_model.RestOrder;
+import com.mmugur81.REST_model.RestOrderItem;
 import com.mmugur81.model.Currency;
 import com.mmugur81.model.Order;
 import com.mmugur81.model.Product;
@@ -7,6 +9,8 @@ import com.mmugur81.model.User;
 import com.mmugur81.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by mugurel on 13.09.2016.
@@ -116,5 +120,21 @@ public class OrderService {
 
         order.registerPayment();
         orderRepository.saveAndFlush(order);
+    }
+
+    public Order convertFromRestOrder(RestOrder restOrder) {
+        // It assumes restOrder has already been validated
+        Order order = new Order();
+        order.setUser(userService.get(restOrder.getUserId()));
+
+        // Add products
+        Product product;
+        List<RestOrderItem> orderItems = restOrder.getOrderItems();
+        for (RestOrderItem item : orderItems) {
+            product = productService.get(item.getProduct().getId());
+            order.addProductItem(product);
+        }
+
+        return order;
     }
 }
