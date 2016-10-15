@@ -53,8 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/api/**")
-                .permitAll()
-                .anyRequest().anonymous();
+                .permitAll();
 
         http.csrf().requireCsrfProtectionMatcher(new RequestMatcher() {
             private Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$");
