@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<footer class="footer footer-custom">
+<footer id="footer" class="footer footer-custom">
   <div>&copy; Mugurel Mirica</div>
 </footer>
 
@@ -10,6 +10,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+
+<script>
+  // Align footer to bottom if page height is smaller then the screen
+  if ($(document).height() > document.body.scrollHeight) {
+    $("#footer").css("position", "absolute");
+    $("#footer").css("bottom", "0");
+  }
+</script>
 
 </body>
 </html>

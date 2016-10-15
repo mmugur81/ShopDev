@@ -103,12 +103,12 @@
 }
 
 .footer-custom {
-  background-color: #5e43b6;
-  border-color: #8260f2;
-  color: #f6efff;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 5px;
-  text-align: center;
+    height: 30px;
+    margin-top: 20px;
+    background-color: #5e43b6;
+    border-color: #8260f2;
+    color: #f6efff;
+    width: 100%;
+    padding: 5px;
+    text-align: center;
 }
