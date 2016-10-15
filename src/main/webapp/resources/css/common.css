@@ -79,3 +79,7 @@ a.link-add:hover {
 .float-right {
     float: right;
 }
+
+.line-2 {
+    line-height: 200%;
+}

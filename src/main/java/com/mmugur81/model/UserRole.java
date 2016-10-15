@@ -18,7 +18,8 @@ public class UserRole extends BaseModel {
 
     public static enum Role {
         ADMIN,
-        USER
+        USER,
+        ORDER_ADMIN
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

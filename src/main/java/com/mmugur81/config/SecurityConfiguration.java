@@ -1,5 +1,6 @@
 package com.mmugur81.config;
 
+import com.mmugur81.model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -28,15 +29,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/", "/demo",
-                    "/about", "/contact",
-                    "/account/register", "/resources/**"
+                .antMatchers(
+                        "/", "/demo", "/about", "/contact",
+                        "/account/register", "/resources/**",
+                        "/api/**" // Temporary allow API access for anyone
                 ).permitAll()
+                .antMatchers("/admin/order/**").hasAuthority(UserRole.Role.ORDER_ADMIN.toString())
+                .antMatchers("/admin/**").hasAuthority(UserRole.Role.ADMIN.toString())
                 .anyRequest().authenticated()
-                .and()
-            .authorizeRequests()
-                .antMatchers("/admin/**")
-                .access("hasRole('ADMIN')")
                 .and()
             .formLogin()
                 .loginPage("/account/login")
@@ -49,12 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/account/logout"))
                 .permitAll();
 
-        // Temporary allow api access for anyone
-        http
-            .authorizeRequests()
-                .antMatchers("/api/**")
-                .permitAll();
-
+        // Disable CSRF for API calls
         http.csrf().requireCsrfProtectionMatcher(new RequestMatcher() {
             private Pattern allowedMethods = Pattern.compile("^(GET|HEAD|TRACE|OPTIONS)$");
             private RegexRequestMatcher apiMatcher = new RegexRequestMatcher("/api.*", null);
