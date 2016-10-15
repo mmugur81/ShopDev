@@ -2,14 +2,14 @@ package com.mmugur81.service;
 
 import com.mmugur81.REST_model.RestOrder;
 import com.mmugur81.REST_model.RestOrderItem;
-import com.mmugur81.model.Currency;
-import com.mmugur81.model.Order;
-import com.mmugur81.model.Product;
-import com.mmugur81.model.User;
+import com.mmugur81.model.*;
 import com.mmugur81.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -136,5 +136,19 @@ public class OrderService {
         }
 
         return order;
+    }
+
+    // TODO add testing for this method
+    public List<Order> searchByUserStatusDateInterval(
+        final User user,
+        final Order.Status status,
+        final Date d1,
+        final Date d2
+    ) {
+        List result = orderRepository.findAll(
+            OrderSpecs.byUserStatusDateInterval(user, status, d1, d2)
+        );
+
+        return result;
     }
 }
