@@ -46,6 +46,47 @@ body {
     margin-top: 10px;
 }
 
+.inline {
+    display: inline-block;
+}
+
+.inline-container {
+    display: inline-block;
+    margin: 5px;
+}
+
+.form-filter {
+    padding: 5px;
+    border: solid 1px grey;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.form-filter .form-control {
+    /*display: inline-block;*/
+    position: relative;
+    height: auto;
+    width: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.form-filter select {
+    padding: 1px!important;
+}
+
+.form-filter option {
+    padding: 3px;
+}
+
+.form-filter button {
+    margin: 5px;
+    padding: 5px;
+    font-size: 14px;
+}
+
 .has-error {
     color: red
 }

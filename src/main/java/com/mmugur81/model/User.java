@@ -91,6 +91,10 @@ public class User extends BaseModel {
         this.lastName = lastName;
     }
 
+    public String getFullNameAndEmail() {
+        return String.format("%s %s (%s)", firstName, lastName, email);
+    }
+
     public String getEmail() {
         return email;
     }

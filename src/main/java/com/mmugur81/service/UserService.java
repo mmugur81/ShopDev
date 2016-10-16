@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Mugurel on 13.08.2016.
@@ -76,6 +77,10 @@ public class UserService {
 
     public User get(long id) {
         return userRepo.findOne(id);
+    }
+
+    public List<User> getAll() {
+        return userRepo.findAll();
     }
 
     public User disable(User user) {
