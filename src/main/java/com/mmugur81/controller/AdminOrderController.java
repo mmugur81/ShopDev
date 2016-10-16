@@ -43,6 +43,7 @@ public class AdminOrderController {
         model.addAttribute("statuses", Order.Status.values());
 
         List<Order> orders = orderService.searchByCriteria(searchForm);
+        model.addAttribute("orders", orders);
 
         return "/admin/order/list";
     }

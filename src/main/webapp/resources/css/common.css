@@ -56,21 +56,22 @@ body {
 }
 
 .form-filter {
-    padding: 5px;
+    font-size: 12px;
+    padding: 3px;
     border: solid 1px grey;
     border-radius: 10px;
-    font-size: 14px;
+    margin-bottom: 15px;
 }
 
 .form-filter .form-control {
-    /*display: inline-block;*/
+    font-size: inherit;
     position: relative;
     height: auto;
     width: auto;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 5px;
+    padding: 4px;
 }
 
 .form-filter select {

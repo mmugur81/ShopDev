@@ -9,7 +9,15 @@
 <%@ include file="../../header.jsp" %>
 
 <s:message code="None" var="lblNone"/>
+<s:message code="Reset" var="lblReset"/>
 <s:message code="admin.order.filter.filter" var="lblFilter"/>
+<s:message code="admin.order.order_id" var="lblOrderId"/>
+<s:message code="admin.order.status" var="lblStatus"/>
+<s:message code="admin.order.user" var="lblUser"/>
+<s:message code="admin.order.date" var="lblDate"/>
+<s:message code="admin.order.created_between" var="lblCreatedBetween"/>
+<s:message code="admin.order.total" var="lblTotal"/>
+<s:message code="admin.order.details" var="lblDetails"/>
 
 <fmt:formatDate var="createdStart" value="${orderSearchForm.createdBetween.start}" pattern="MM/dd/yyyy"/>
 <fmt:formatDate var="createdEnd" value="${orderSearchForm.createdBetween.end}" pattern="MM/dd/yyyy"/>
@@ -17,10 +25,10 @@
 <div class="container">
     <h2>${pageTitle}</h2>
 
-    <f:form method="GET" modelAttribute="orderSearchForm" class="form-filter">
+    <f:form id="filterFrm" method="GET" modelAttribute="orderSearchForm" class="form-filter">
 
         <div class="inline-container">
-            <f:label path="user">User</f:label>
+            <f:label path="user">${lblUser}</f:label>
             <s:bind path="user">
                 <f:select path="user" rows="5" class="form-control">
                     <f:option value="" label="--- ${lblNone} ---" />
@@ -30,7 +38,7 @@
         </div>
 
         <div class="inline-container">
-            <f:label path="status">Status</f:label>
+            <f:label path="status">${lblStatus}</f:label>
             <s:bind path="status">
                 <f:select path="status" rows="5" class="form-control">
                     <f:option value="" label="--- ${lblNone} ---" />
@@ -40,7 +48,7 @@
         </div>
 
         <div class="inline-container">
-            <f:label path="createdBetween.start">Created between</f:label>
+            <f:label path="createdBetween.start">${lblCreatedBetween}</f:label>
             <div>
                 <s:bind path="createdBetween.start">
                     <f:input type="text" path="createdBetween.start" value="${createdStart}"
@@ -55,12 +63,39 @@
         </div>
 
         <div class="inline-container">
-            <button class="btn btn-lg btn-primary form-control" type="submit">
+            <button class="btn btn-primary form-control" type="submit">
                     ${lblFilter}
             </button>
         </div>
 
     </f:form>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>${lblOrderId}</th>
+            <th>${lblDate}</th>
+            <th>${lblStatus}</th>
+            <th>${lblUser}</th>
+            <th>${lblTotal}</th>
+            <th>${lblDetails}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${orders}" var="order">
+            <tr>
+                <td>${order.id}</td>
+                <td><fmt:formatDate value="${order.created}" pattern="MM/dd/yyyy HH:mm" /></td>
+                <td>${order.status}</td>
+                <td>${order.user.fullNameAndEmail}</td>
+                <td>${order.total.price} ${order.total.currency}</td>
+                <td><a href="${contextPath}/admin/order/view/${order.id}" class="link-edit">
+                    <span class="glyphicon glyphicon-edit"></span> ${lblDetails}</a>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 
 </div>
 
