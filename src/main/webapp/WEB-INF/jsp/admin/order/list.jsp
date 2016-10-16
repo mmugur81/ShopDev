@@ -1,5 +1,6 @@
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -9,6 +10,9 @@
 
 <s:message code="None" var="lblNone"/>
 <s:message code="admin.order.filter.filter" var="lblFilter"/>
+
+<fmt:formatDate var="createdStart" value="${orderSearchForm.createdBetween.start}" pattern="MM/dd/yyyy"/>
+<fmt:formatDate var="createdEnd" value="${orderSearchForm.createdBetween.end}" pattern="MM/dd/yyyy"/>
 
 <div class="container">
     <h2>${pageTitle}</h2>
@@ -39,11 +43,13 @@
             <f:label path="createdBetween.start">Created between</f:label>
             <div>
                 <s:bind path="createdBetween.start">
-                    <f:input type="text" path="createdBetween.start" class="form-control inline" />
+                    <f:input type="text" path="createdBetween.start" value="${createdStart}"
+                              class="form-control inline datepicker"/>
                 </s:bind>
                 <span>and</span>
                 <s:bind path="createdBetween.end">
-                    <f:input type="text" path="createdBetween.end" class="form-control inline" />
+                    <f:input type="text" path="createdBetween.end" value="${createdEnd}"
+                             class="form-control inline datepicker" />
                 </s:bind>
             </div>
         </div>
