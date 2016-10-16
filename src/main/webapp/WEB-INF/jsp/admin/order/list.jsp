@@ -17,6 +17,7 @@
 <s:message code="admin.order.date" var="lblDate"/>
 <s:message code="admin.order.created_between" var="lblCreatedBetween"/>
 <s:message code="admin.order.total" var="lblTotal"/>
+<s:message code="admin.order.items" var="lblItems"/>
 <s:message code="admin.order.details" var="lblDetails"/>
 
 <fmt:formatDate var="createdStart" value="${orderSearchForm.createdBetween.start}" pattern="MM/dd/yyyy"/>
@@ -78,6 +79,7 @@
             <th>${lblStatus}</th>
             <th>${lblUser}</th>
             <th>${lblTotal}</th>
+            <th>${lblItems}</th>
             <th>${lblDetails}</th>
         </tr>
         </thead>
@@ -89,6 +91,7 @@
                 <td>${order.status}</td>
                 <td>${order.user.fullNameAndEmail}</td>
                 <td>${order.total.price} ${order.total.currency}</td>
+                <td>${order.orderItems.size()}</td>
                 <td><a href="${contextPath}/admin/order/view/${order.id}" class="link-edit">
                     <span class="glyphicon glyphicon-edit"></span> ${lblDetails}</a>
                 </td>
