@@ -2,13 +2,8 @@ package com.mmugur81.model;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,25 +13,22 @@ import java.util.List;
 
 public class OrderSpecs {
 
-    public static Specification<Order> byUserStatusDateInterval(
-        final User user,
-        final Order.Status status,
-        final Date d1,
-        final Date d2
-    ) {
+    public static Specification<Order> bySearchCriteria(final OrderSearchCriteria osc) {
         return (root, query, builder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            if (user != null) {
-                predicates.add(builder.equal(root.get(Order_.user), user));
+            if (osc.user != null) {
+                predicates.add(builder.equal(root.get(Order_.user), osc.user));
             }
 
-            if (status != null) {
-                predicates.add(builder.equal(root.get(Order_.status), status));
+            if (osc.status != null) {
+                predicates.add(builder.equal(root.get(Order_.status), osc.status));
             }
 
-            if (d1 != null && d2 != null) {
-                predicates.add(builder.between(root.get(Order_.created), d1, d2));
+            if (osc.createdBetween != null && osc.createdBetween.start != null && osc.createdBetween.end != null) {
+                predicates.add(builder.between(
+                        root.get(Order_.created), osc.createdBetween.start, osc.createdBetween.end
+                ));
             }
 
             return builder.and(predicates.toArray(new Predicate[0]));

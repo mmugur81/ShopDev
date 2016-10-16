@@ -139,15 +139,8 @@ public class OrderService {
     }
 
     // TODO add testing for this method
-    public List<Order> searchByUserStatusDateInterval(
-        final User user,
-        final Order.Status status,
-        final Date d1,
-        final Date d2
-    ) {
-        List result = orderRepository.findAll(
-            OrderSpecs.byUserStatusDateInterval(user, status, d1, d2)
-        );
+    public List<Order> searchByCriteria(final OrderSearchCriteria orderSearch) {
+        List result = orderRepository.findAll(OrderSpecs.bySearchCriteria(orderSearch));
 
         return result;
     }
