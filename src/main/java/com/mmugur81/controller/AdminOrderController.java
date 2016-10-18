@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -46,5 +47,16 @@ public class AdminOrderController {
         model.addAttribute("orders", orders);
 
         return "/admin/order/list";
+    }
+
+    @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
+    public String view(
+        Model model,
+        @PathVariable("id") long id
+    ) {
+
+        model.addAttribute("order", orderService.get(id));
+
+        return "/admin/order/view";
     }
 }

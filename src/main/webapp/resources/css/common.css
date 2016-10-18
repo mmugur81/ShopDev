@@ -125,3 +125,34 @@ a.link-add:hover {
 .line-2 {
     line-height: 200%;
 }
+
+.form-view-wrapper {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.form-view {
+    margin-top: 20px;
+    border: solid 2px #5344a5;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 14px;
+    line-height: 30px;
+}
+
+.form-legend {
+    margin-top: -20px;
+    margin-bottom: 10px;
+    padding: 8px;
+    float: left;
+    font-size: 14px;
+    text-align: left;
+}
+
+.col-label {
+
+}
+
+.col-value {
+    color: #0000AA;
+}
