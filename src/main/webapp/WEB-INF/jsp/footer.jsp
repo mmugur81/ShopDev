@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<div class="footer-margin" />
 <footer id="footer" class="footer footer-custom">
-  <div>&copy; Mugurel Mirica</div>
+  <div>
+    <u><a href="https://github.com/mmugur81/ShopDev" target="_blank" class="brand-a">ShopDev</a></u>
+    &dash;
+    &copy; Mugurel Mirica
+  </div>
 </footer>
 
 <!-- Bootstrap core JavaScript
@@ -12,12 +17,6 @@
 <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
 
 <script>
-  // Align footer to bottom if page height is smaller then the screen
-  if ($(document).height() > document.body.scrollHeight) {
-    $("#footer").css("position", "absolute");
-    $("#footer").css("bottom", "0");
-  }
-
   // Assign calendars
   jQuery( function() {
     jQuery(".datepicker").datepicker();

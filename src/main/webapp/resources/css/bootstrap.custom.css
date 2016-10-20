@@ -69,6 +69,14 @@
   }
 }
 
+.brand-a {
+    color: #f6efff;
+}
+
+.brand-a:active, .brand-a:hover {
+    color: #fbbc00;
+}
+
 .label-primary {
     color: #f6efff;
     background-color: #5e43b6;
@@ -110,6 +118,8 @@
 }
 
 .footer-custom {
+    position: fixed;
+    bottom: 0;
     height: 30px;
     margin-top: 20px;
     background-color: #5e43b6;
@@ -118,4 +128,8 @@
     width: 100%;
     padding: 5px;
     text-align: center;
+}
+
+.footer-margin {
+    margin-top: 50px;
 }
