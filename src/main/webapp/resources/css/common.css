@@ -156,3 +156,11 @@ a.link-add:hover {
 .col-value {
     color: #0000AA;
 }
+
+.bold {
+    font-weight: bold;
+}
+
+.mr20 {
+    margin-right: 20px;
+}
