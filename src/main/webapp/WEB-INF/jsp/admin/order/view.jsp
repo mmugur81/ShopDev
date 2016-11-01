@@ -28,7 +28,13 @@
 <fmt:formatDate var="payDate" value="${order.payDate}" pattern="MM/dd/yyyy"/>
 
 <div class="container">
-    <h2>${pageTitle}</h2>
+    <h2>
+        ${pageTitle}
+        <a href="/admin/order/" class="btn btn-primary" style="float: right">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+            ${"back to orders"}
+        </a>
+    </h2>
 
     <div class="row">
         <div class="col-lg-6 form-view-wrapper">
@@ -100,7 +106,7 @@
                     ${"Actions"}
                 </div></div>
 
-                <f:form id="orderFrm" method="POST" class="">
+                <f:form id="orderFrm" method="POST" class="" onsubmit="return promptAction()">
                     <c:choose>
                         <c:when test="${order.status == StatusPending}">
                             <button class="btn btn-success mr20" value="<%=AdminOrderController.Action.Confirm%>"
@@ -127,5 +133,11 @@
     </div>
 
 </div>
+
+<script>
+    function promptAction() {
+        return confirm("Are you sure you want to proceed with this action?");
+    }
+</script>
 
 <%@ include file="../../footer.jsp" %>

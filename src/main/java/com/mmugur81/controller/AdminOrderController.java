@@ -68,7 +68,19 @@ public class AdminOrderController {
         @PathVariable("id") long id,
         @RequestParam Action orderAction
     ) {
-        // TODO implement action process
+        switch (orderAction) {
+            case Confirm:
+                orderService.confirmOrder(id);
+                break;
+
+            case Cancel:
+                orderService.cancelOrder(id);
+                break;
+
+            case MarkPayed:
+                orderService.registerPayment(id);
+                break;
+        }
 
         return "redirect:/admin/order/view/" + id;
     }
