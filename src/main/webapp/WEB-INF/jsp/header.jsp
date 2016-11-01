@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+
+<s:message code="main.home" var="lblHome" />
+<s:message code="main.about" var="lblAbout" />
+<s:message code="main.contact" var="lblContact" />
+<s:message code="main.admin" var="lblAdmin" />
+<s:message code="main.sign_up" var="lblSignUp" />
+<s:message code="main.login" var="lblLogin" />
+<s:message code="main.logout" var="lblLogout" />
+<s:message code="main.toggle_navigation" var="lblToggleNavigation" />
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -34,7 +44,7 @@
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
+        <span class="sr-only">${lblToggleNavigation}</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -43,22 +53,22 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li><a href="${contextPath}/">Home</a></li>
-        <li><a href="${contextPath}/about">About</a></li>
-        <li><a href="${contextPath}/contact">Contact</a></li>
+        <li><a href="${contextPath}/">${lblHome}</a></li>
+        <li><a href="${contextPath}/about">${lblAbout}</a></li>
+        <li><a href="${contextPath}/contact">${lblContact}</a></li>
         <sec:authorize access="hasAuthority('ADMIN')">
-            <li><a href="${contextPath}/admin/">Admin</a></li>
+            <li><a href="${contextPath}/admin/">${lblAdmin}</a></li>
         </sec:authorize>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <c:choose>
 		  <c:when test="${pageContext.request.userPrincipal.authenticated}">
 		    <li><a href="#"><span class="glyphicon glyphicon-user"></span> ${pageContext.request.userPrincipal.name}</a></li>
-            <li><a href="${contextPath}/account/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            <li><a href="${contextPath}/account/logout"><span class="glyphicon glyphicon-log-out"></span> ${lblLogout}</a></li>
 		  </c:when>
 		  <c:otherwise>
-	        <li><a href="${contextPath}/account/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-	        <li><a href="${contextPath}/account/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+	        <li><a href="${contextPath}/account/register"><span class="glyphicon glyphicon-user"></span> ${lblSignUp}</a></li>
+	        <li><a href="${contextPath}/account/login"><span class="glyphicon glyphicon-log-in"></span> ${lblLogin}</a></li>
 		  </c:otherwise>
 		</c:choose>
       </ul>

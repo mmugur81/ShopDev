@@ -4,7 +4,7 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
-<c:set var="pageTitle" value="Main page title"/>
+<s:message code="main.title" var="pageTitle" />
 <%@ include file="header.jsp" %>
 
 <div class="container" align="center">
