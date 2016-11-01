@@ -1,10 +1,12 @@
-<%--TODO translate string variables--%>
 <%@ page import="com.mmugur81.controller.AdminOrderController" %>
 <%@ page import="com.mmugur81.model.Order" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<%--@elvariable id="order" type="com.mmugur81.model.Order"--%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -18,6 +20,16 @@
 <s:message code="admin.product.name" var="lblName"/>
 <s:message code="admin.product.category" var="lblCategory"/>
 <s:message code="admin.product.price" var="lblPrice"/>
+<s:message code="admin.order.order_id" var="lblOrderId"/>
+<s:message code="admin.order.status" var="lblStatus"/>
+<s:message code="admin.order.user" var="lblUser"/>
+<s:message code="admin.order.date" var="lblDate"/>
+<s:message code="admin.order.total" var="lblTotal"/>
+<s:message code="admin.order.view.payed" var="lblPayed"/>
+<s:message code="admin.order.view.confirm_order" var="lblActConfirm"/>
+<s:message code="admin.order.view.cancel_order" var="lblActCancel"/>
+<s:message code="admin.order.view.mark_payed" var="lblActPayed"/>
+<s:message code="admin.order.view.prompt_action" var="msgPromptAction"/>
 
 <c:set var="colLeft" scope="page" value="col-lg-4"/>
 <c:set var="colRight" scope="page" value="col-lg-8 col-value"/>
@@ -30,7 +42,7 @@
 <div class="container">
     <h2>
         ${pageTitle}
-        <a href="/admin/order/" class="btn btn-primary" style="float: right">
+        <a href="${contextPath}/admin/order/" class="btn btn-primary" style="float: right">
             <span class="glyphicon glyphicon-arrow-left"></span>
             ${"back to orders"}
         </a>
@@ -43,22 +55,22 @@
                     ${lblDetails}
                 </div></div>
 
-                <div class="${colLeft}">Order id</div>
+                <div class="${colLeft}">${lblOrderId}</div>
                 <div class="${colRight}">${order.id}</div>
 
-                <div class="${colLeft}">User</div>
+                <div class="${colLeft}">${lblUser}</div>
                 <div class="${colRight}">${order.user.fullNameAndEmail}</div>
 
-                <div class="${colLeft}">Date</div>
+                <div class="${colLeft}">${lblDate}</div>
                 <div class="${colRight}"><fmt:formatDate value="${order.created}" pattern="MM/dd/yyyy"/></div>
 
-                <div class="${colLeft}">Status</div>
+                <div class="${colLeft}">${lblStatus}</div>
                 <div class="${colRight}">${order.status}</div>
 
-                <div class="${colLeft}">Payed (date)</div>
+                <div class="${colLeft}">${lblPayed} (${fn:toLowerCase(lblDate)})</div>
                 <div class="${colRight}">${order.payed ? lblYes : lblNo} (${payDate})</div>
 
-                <div class="${colLeft}">Total</div>
+                <div class="${colLeft}">${lblTotal}</div>
                 <div class="${colRight}"><strong>
                     <fmt:formatNumber type="number" value="${order.total.price}" />
                     ${order.total.currency}
@@ -111,20 +123,20 @@
                         <c:when test="${order.status == StatusPending}">
                             <button class="btn btn-success mr20" value="<%=AdminOrderController.Action.Confirm%>"
                                     name="orderAction" type="submit">
-                                    ${"Confirm order!"}
+                                    ${lblActConfirm}
                             </button>
                         </c:when>
                         <c:when test="${order.status == StatusConfirmed}">
                             <button class="btn btn-danger mr20" value="<%=AdminOrderController.Action.Cancel%>"
                                     name="orderAction" type="submit">
-                                    ${"Cancel order!"}
+                                    ${lblActCancel}
                             </button>
                         </c:when>
                     </c:choose>
                     <c:if test="${order.payed == false}">
                         <button class="btn btn-info mr20" value="<%=AdminOrderController.Action.MarkPayed%>"
                                 name="orderAction" type="submit">
-                                ${"Mark as payed!"}
+                                ${lblActPayed}
                         </button>
                     </c:if>
 
@@ -136,7 +148,7 @@
 
 <script>
     function promptAction() {
-        return confirm("Are you sure you want to proceed with this action?");
+        return confirm("${msgPromptAction}");
     }
 </script>
 
