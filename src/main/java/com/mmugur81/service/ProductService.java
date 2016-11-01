@@ -1,86 +1,31 @@
 package com.mmugur81.service;
 
-import com.mmugur81.model.*;
-import com.mmugur81.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import com.mmugur81.model.Category;
+import com.mmugur81.model.Currency;
+import com.mmugur81.model.Product;
+import com.mmugur81.model.User;
 
 import java.util.List;
 
 /**
- * Created by Mugurel on 16.08.2016.
- * Product Service
+ * Created by mugurel on 01.11.2016.
  */
+public interface ProductService {
+    Currency getDefaultCurrency();
 
-@Service
-public class ProductService {
+    Product createProduct(String title, Category category, User user);
 
-    private ProductRepository productRepo;
+    Product createProduct(String title, long categoryId, long userId, double price);
 
-    private CategoryService categoryService;
+    Product get(long id);
 
-    private UserService userService;
+    List<Product> getAllProducts();
 
-    private Currency defaultCurrency;
+    List<Product> getAllProducts(Category category);
 
-    @Autowired
-    public ProductService(
-            ProductRepository productRepo,
-            CategoryService categoryService,
-            UserService userService,
-            @Value("${app.currency}") Currency defaultCurrency
-    ) {
-        this.productRepo = productRepo;
-        this.categoryService = categoryService;
-        this.userService = userService;
-        this.defaultCurrency = defaultCurrency;
-    }
+    Product save(Product product);
 
-    public Currency getDefaultCurrency() {
-        return defaultCurrency;
-    }
+    Product save(Product product, User user);
 
-    /******************************************************************************************************************/
-
-    public Product createProduct(String title, Category category, User user) {
-        Product product = new Product(title, category, user);
-        return productRepo.saveAndFlush(product);
-    }
-
-    public Product createProduct(String title, long categoryId, long userId, double price) {
-        Category category = categoryService.get(categoryId);
-        User user = userService.get(userId);
-        Product product = new Product(title, category, user);
-        Price p = new Price(price, this.defaultCurrency);
-        product.setPrice(p);
-        return productRepo.saveAndFlush(product);
-    }
-
-    public Product get(long id) {
-        return productRepo.findOne(id);
-    }
-
-    public List<Product> getAllProducts() {
-        return productRepo.findAll();
-    }
-
-    public List<Product> getAllProducts(Category category) {
-        return productRepo.findByCategory(category);
-    }
-
-    public Product save(Product product) {
-        return productRepo.saveAndFlush(product);
-    }
-
-    public Product save(Product product, User user) {
-        if (product.getUser() == null) {
-            product.setUser(user);
-        }
-        return productRepo.saveAndFlush(product);
-    }
-
-    public void delete(Product product) {
-        productRepo.delete(product);
-    }
+    void delete(Product product);
 }
