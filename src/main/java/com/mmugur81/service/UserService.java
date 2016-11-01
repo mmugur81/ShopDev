@@ -83,7 +83,7 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public User disable(User user) {
+    public User disableUser(User user) {
         user.setStatus(User.Status.Disabled);
 
         // "Disable" email to allow registering the same email for a new account

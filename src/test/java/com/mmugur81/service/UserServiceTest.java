@@ -45,7 +45,7 @@ public class UserServiceTest {
     @After
     public void after() {
         if (user != null && user.getId() != 0) {
-            userService.disable(user);
+            userService.disableUser(user);
         }
     }
 
@@ -126,7 +126,7 @@ public class UserServiceTest {
         // Given - user already created in before()
 
         // When
-        User disabledUser = userService.disable(user);
+        User disabledUser = userService.disableUser(user);
 
         // Then
         assertThat(disabledUser, hasProperty("status", equalTo(User.Status.Disabled)));
