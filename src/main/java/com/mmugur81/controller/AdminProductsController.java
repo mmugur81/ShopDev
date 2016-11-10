@@ -5,6 +5,7 @@ import com.mmugur81.model.Product;
 import com.mmugur81.model.User;
 import com.mmugur81.service.CategoryService;
 import com.mmugur81.service.ProductService;
+import com.mmugur81.service.UploadService;
 import com.mmugur81.service.UserService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -32,6 +32,7 @@ public class AdminProductsController {
     private ProductService productService;
     private CategoryService categoryService;
     private UserService userService;
+    private UploadService uploadService;
     private MessageSource ms;
 
     @Autowired
@@ -39,11 +40,13 @@ public class AdminProductsController {
             ProductService productService,
             CategoryService categoryService,
             UserService userService,
+            UploadService uploadService,
             MessageSource ms
     ) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.userService = userService;
+        this.uploadService = uploadService;
         this.ms = ms;
     }
 
@@ -85,6 +88,7 @@ public class AdminProductsController {
             @Valid @ModelAttribute("productForm") Product product,
             BindingResult bindingResult,
             Model model,
+            @RequestParam("productImage") MultipartFile uploadedImage,
             HttpServletRequest request
     ) {
         Boolean hasErrors = false;
@@ -111,6 +115,10 @@ public class AdminProductsController {
 
             return "/admin/product/edit";
         } else {
+            // Process image upload
+            uploadService.uploadFile(
+                uploadedImage, addedProduct.getId(), UploadService.Target.PRODUCT, UploadService.Type.IMAGE);
+
             return "redirect:/admin/product/";
         }
     }
@@ -138,6 +146,7 @@ public class AdminProductsController {
             @ModelAttribute("categoryForm") @Valid Product product,
             BindingResult bindingResult,
             Model model,
+            @RequestParam("productImage") MultipartFile uploadedImage,
             HttpServletRequest request
     ) {
         Boolean hasErrors = false;
@@ -163,6 +172,10 @@ public class AdminProductsController {
 
             return "/admin/product/edit";
         } else {
+            // Process image upload
+            uploadService.uploadFile(
+                uploadedImage, savedProduct.getId(), UploadService.Target.PRODUCT, UploadService.Type.IMAGE);
+
             return "redirect:/admin/product/";
         }
     }

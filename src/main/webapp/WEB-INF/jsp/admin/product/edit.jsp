@@ -16,7 +16,7 @@
 
 <div class="container">
 
-    <f:form method="POST" modelAttribute="productForm" class="form-signin">
+    <f:form method="POST" modelAttribute="productForm" class="form-signin" enctype="multipart/form-data">
         <h2 class="form-signin-heading">${pageTitle}</h2>
         
         <s:bind path="name">
@@ -63,6 +63,10 @@
                 <f:errors path="description" />
             </div>
         </s:bind>
+        
+        <div class="form-group">
+            <input type="file" accept="" name="productImage" value="Select a File..." />
+        </div>
 
         <button class="btn btn-lg float-left" type="button" onClick="window.location='${contextPath}/admin/product/'">
             ${lblBack}
