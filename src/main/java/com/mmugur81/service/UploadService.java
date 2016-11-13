@@ -1,5 +1,6 @@
 package com.mmugur81.service;
 
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -27,6 +28,8 @@ public interface UploadService {
      * @return String
      */
     String retrieveFileName(Target target, long entityId);
+
+    Resource retrieveFileAsResource(Target target, long entityId);
 
     default String getFileNameFormat(Target target, long entityId) {
         return target + "-" + entityId;
