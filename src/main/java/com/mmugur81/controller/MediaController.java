@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -38,8 +39,12 @@ public class MediaController {
     public ResponseEntity<Resource> serveFile(
         @PathVariable("target")UploadService.Target target,
         @PathVariable("id") Long id
-    ) throws IOException {
+    ) {
         Resource file = uploadService.retrieveFileAsResource(target, id);
+        if (file == null) {
+            return new ResponseEntity<>(null, null, HttpStatus.NOT_FOUND);
+        }
+
         MediaType mediaType = MediaType.valueOf(new MimetypesFileTypeMap().getContentType(file.getFilename()));
 
         return ResponseEntity

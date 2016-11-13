@@ -78,8 +78,11 @@ public class UploadServiceImpl implements UploadService {
     @Override
     public Resource retrieveFileAsResource(Target target, long entityId) {
         String fileName = retrieveFileName(target, entityId);
-        Resource resource = new FileSystemResource(uploadDir + fileName);
+        if (fileName == null) {
+            return null;
+        }
 
+        Resource resource = new FileSystemResource(uploadDir + fileName);
         return (resource.exists() || resource.isReadable()) ? resource : null;
     }
 }
