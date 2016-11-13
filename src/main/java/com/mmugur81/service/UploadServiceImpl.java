@@ -1,16 +1,12 @@
 package com.mmugur81.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -82,16 +78,8 @@ public class UploadServiceImpl implements UploadService {
     @Override
     public Resource retrieveFileAsResource(Target target, long entityId) {
         String fileName = retrieveFileName(target, entityId);
-        Resource resource;
-        try {
-            resource = new UrlResource("file:" + uploadDir + fileName);
-            if (resource.exists() || resource.isReadable()) {
-                return resource;
-            }
-        } catch (MalformedURLException e){
-            return null;
-        }
+        Resource resource = new FileSystemResource(uploadDir + fileName);
 
-        return null;
+        return (resource.exists() || resource.isReadable()) ? resource : null;
     }
 }
