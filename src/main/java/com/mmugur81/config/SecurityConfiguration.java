@@ -32,6 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/", "/demo", "/about", "/contact",
                         "/account/register", "/resources/**",
+                        "/media/**",
                         "/api/**" // Temporary allow API access for anyone
                 ).permitAll()
                 .antMatchers("/admin/order/**").hasAuthority(UserRole.Role.ORDER_ADMIN.toString())
