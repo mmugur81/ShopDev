@@ -150,7 +150,7 @@ public class AdminProductsController {
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String edit(
             @PathVariable("id") Long id,
-            @ModelAttribute("categoryForm") @Valid Product product,
+            @ModelAttribute("productForm") @Valid Product product,
             BindingResult bindingResult,
             Model model,
             @RequestParam("productImage") MultipartFile uploadedImage,
