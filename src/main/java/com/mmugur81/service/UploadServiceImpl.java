@@ -38,7 +38,12 @@ public class UploadServiceImpl implements UploadService {
     @Override
     public boolean uploadFile(MultipartFile uploadedFile, long entityId, Target target, Type fileType) {
 
-        String extension = uploadedFile.getOriginalFilename().split("\\.")[1];
+        String origFileName = uploadedFile.getOriginalFilename();
+        if (origFileName.equals("")) {
+            return false;
+        }
+
+        String extension = origFileName.split("\\.")[1];
         String newFileName = this.getFileNameFormat(target, entityId) + "." + extension;
 
         try {
@@ -58,6 +63,17 @@ public class UploadServiceImpl implements UploadService {
         }
 
         return true;
+    }
+
+    @Override
+    public boolean removeFile(long entityId, Target target, Type fileType) {
+        String fileName = retrieveFileName(target, entityId);
+        if (fileName == null || fileName.equals("")) {
+            return false;
+        }
+
+        File file = new File(uploadDir + fileName);
+        return file.delete();
     }
 
     @Override

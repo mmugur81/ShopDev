@@ -20,6 +20,8 @@ public interface UploadService {
 
     boolean uploadFile(MultipartFile uploadedFile, long entityId, Target target, Type fileType);
 
+    boolean removeFile(long entityId, Target target, Type fileType);
+
     /**
      * Target file name format: "{Target}-{id}.{extension}"
      *

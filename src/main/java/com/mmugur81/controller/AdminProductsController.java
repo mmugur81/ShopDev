@@ -137,6 +137,13 @@ public class AdminProductsController {
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("currencies", Currency.values());
 
+        // Check product image
+        String productImage = uploadService.retrieveFileName(UploadService.Target.PRODUCT, id);
+        if (productImage != null) {
+            productImage = "/media/" + UploadService.Target.PRODUCT + "/" + id;
+        }
+        model.addAttribute("productImage", productImage);
+
         return "/admin/product/edit";
     }
 
@@ -171,7 +178,14 @@ public class AdminProductsController {
             model.addAttribute("currencies", Currency.values());
 
             return "/admin/product/edit";
-        } else {
+        }
+        else {
+            // Process image removal
+            Boolean removeImage = Boolean.valueOf(request.getParameter("removeImage"));
+            if (removeImage) {
+                uploadService.removeFile(savedProduct.getId(), UploadService.Target.PRODUCT, UploadService.Type.IMAGE);
+            }
+
             // Process image upload
             uploadService.uploadFile(
                 uploadedImage, savedProduct.getId(), UploadService.Target.PRODUCT, UploadService.Type.IMAGE);
