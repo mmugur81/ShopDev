@@ -14,6 +14,7 @@
 <s:message code="admin.product.price" var="lblPrice"/>
 <s:message code="admin.product.list.add_new" var="lblAddNew"/>
 <s:message code="admin.product.list.confirm_delete" var="msgConfirmDelete"/>
+<s:message code="admin.product.quantity" var="lblQtty"/>
 
 <div class="container">
   <h2>${pageTitle}</h2>
@@ -24,6 +25,7 @@
         <th>${lblCategory}</th>
         <th>${lblPrice}</th>
         <th>${lblCurrency}</th>
+        <th>${lblQtty}</th>
         <th>${lblDescription}</th>
       </tr>
     </thead>
@@ -41,7 +43,8 @@
         <td>${product.category.name}</td>
         <td>${product.price.price}</td>
         <td>${product.price.currency}</td>
-        <td>${product.description}</td>
+        <td>${product.quantity}</td>
+        <td class="mxw300">${product.description}</td>
       </tr>
     </c:forEach>
     </tbody>

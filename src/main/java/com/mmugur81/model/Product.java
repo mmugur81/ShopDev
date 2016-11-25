@@ -33,6 +33,9 @@ public class Product extends BaseModel {
     @Embedded
     private Price price;
 
+    @NotNull
+    private int quantity;
+
     /******************************************************************************************************************/
 
     public Product() { }
@@ -96,5 +99,13 @@ public class Product extends BaseModel {
 
     public double getPriceValue() {
         return this.price.getPrice();
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

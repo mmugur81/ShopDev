@@ -12,6 +12,7 @@
 <s:message code="admin.product.description" var="lblDescription"/>
 <s:message code="admin.product.currency" var="lblCurrency"/>
 <s:message code="admin.product.price" var="lblPrice"/>
+<s:message code="admin.product.quantity" var="lblQtty"/>
 <s:message code="admin.product.image.label" var="lblImage"/>
 <s:message code="admin.product.image.sel_file" var="lblSelFile"/>
 <s:message code="None" var="lblNone"/>
@@ -60,7 +61,15 @@
                 <f:errors path="price.currency" />
             </div>
         </s:bind>
-        
+
+        <div>${lblQtty}</div>
+        <s:bind path="quantity">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <f:input type="text" path="quantity" class="form-control" autofocus="true" />
+                <f:errors path="quantity" />
+            </div>
+        </s:bind>
+
         <s:bind path="description">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <f:textarea path="description" rows="5" class="form-control" 
