@@ -23,11 +23,11 @@ VALUES
   (8,'2016-08-16 18:03:03','2016-08-16 18:03:03','S4',3,NULL);
 
 INSERT INTO products
-  (id, created, updated, name, description, currency, price, id_category, id_user)
+  (id, created, updated, name, description, currency, price, id_category, id_user, quantity)
 VALUES
-  (1,'2016-09-14 20:45:35','2016-09-14 20:45:35','S1 512 MB'       ,'','RON',1500,5,2),
-  (2,'2016-09-14 20:45:55','2016-09-14 20:45:55','S2 1GB'          ,'','RON',2000,6,2),
-  (3,'2016-09-14 20:47:19','2016-09-14 20:47:19','Gaming Alien LPT','','EUR',2500,1,2);
+  (1,'2016-09-14 20:45:35','2016-09-14 20:45:35','S1 512 MB'       ,'','RON',1500,5,2,0),
+  (2,'2016-09-14 20:45:55','2016-09-14 20:45:55','S2 1GB'          ,'','RON',2000,6,2,0),
+  (3,'2016-09-14 20:47:19','2016-09-14 20:47:19','Gaming Alien LPT','','EUR',2500,1,2,0);
 
 INSERT INTO orders
   (id, created, updated, notes, pay_date, payed, status, currency, price, id_user)
