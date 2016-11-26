@@ -30,4 +30,11 @@ public class DoubleInterval {
     public void setEnd(Double end) {
         this.end = end;
     }
+
+    /******************************************************************************************************************/
+
+    @Override
+    public String toString() {
+        return String.format("[%s, %s]", start, end);
+    }
 }

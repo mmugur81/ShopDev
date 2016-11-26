@@ -69,4 +69,8 @@ public class Price {
         this.price = (double) Math.round(this.price * 100d) / 100d;
     }
 
+    @Override
+    public String toString() {
+        return price + " " + currency;
+    }
 }
