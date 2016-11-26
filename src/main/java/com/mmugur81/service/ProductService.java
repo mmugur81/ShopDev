@@ -1,9 +1,6 @@
 package com.mmugur81.service;
 
-import com.mmugur81.model.Category;
-import com.mmugur81.model.Currency;
-import com.mmugur81.model.Product;
-import com.mmugur81.model.User;
+import com.mmugur81.model.*;
 
 import java.util.List;
 
@@ -28,4 +25,6 @@ public interface ProductService {
     Product save(Product product, User user);
 
     void delete(Product product);
+
+    List<Product> searchByCriteria(ProductSearchCriteria productSearch);
 }

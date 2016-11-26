@@ -92,4 +92,12 @@ public class ProductServiceImpl implements ProductService {
     public void delete(Product product) {
         productRepo.delete(product);
     }
+
+    // TODO add testing for this method
+    @Override
+    public List<Product> searchByCriteria(ProductSearchCriteria productSearch) {
+        List result = productRepo.findAll(ProductSpecs.bySearchCriteria(productSearch));
+
+        return result;
+    }
 }
