@@ -108,4 +108,9 @@ public class Product extends BaseModel {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

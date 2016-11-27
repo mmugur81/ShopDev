@@ -1,11 +1,13 @@
 package com.mmugur81.service;
 
+import com.mmugur81.REST_model.RestProductSearchCriteria;
 import com.mmugur81.model.*;
 
 import java.util.List;
 
 /**
  * Created by mugurel on 01.11.2016.
+ * Product Service interface
  */
 public interface ProductService {
     Currency getDefaultCurrency();
@@ -25,6 +27,8 @@ public interface ProductService {
     Product save(Product product, User user);
 
     void delete(Product product);
+
+    ProductSearchCriteria convertProductSearchCriteriaFromRest(RestProductSearchCriteria restProductSearch);
 
     List<Product> searchByCriteria(ProductSearchCriteria productSearch);
 }

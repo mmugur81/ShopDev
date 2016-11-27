@@ -17,6 +17,8 @@ public class RestProduct {
 
     private Price price;
 
+    private String imageUrl;
+
     /******************************************************************************************************************/
 
     public RestProduct() {
@@ -61,5 +63,13 @@ public class RestProduct {
 
     public void setPrice(Price price) {
         this.price = price;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

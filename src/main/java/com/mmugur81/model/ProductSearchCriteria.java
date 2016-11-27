@@ -17,6 +17,15 @@ public class ProductSearchCriteria {
 
     /******************************************************************************************************************/
 
+    public ProductSearchCriteria(Category category, String nameLike, Currency currency, DoubleInterval priceBetween) {
+        this.category = category;
+        this.nameLike = nameLike;
+        this.currency = currency;
+        this.priceBetween = priceBetween;
+    }
+
+    /******************************************************************************************************************/
+
     public Category getCategory() {
         return category;
     }

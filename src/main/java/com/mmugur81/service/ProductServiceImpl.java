@@ -1,5 +1,6 @@
 package com.mmugur81.service;
 
+import com.mmugur81.REST_model.RestProductSearchCriteria;
 import com.mmugur81.model.*;
 import com.mmugur81.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +92,17 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(Product product) {
         productRepo.delete(product);
+    }
+
+    // TODO add testing for this method
+    @Override
+    public ProductSearchCriteria convertProductSearchCriteriaFromRest(RestProductSearchCriteria restProductSearch) {
+        return new ProductSearchCriteria(
+            (restProductSearch.categoryId != null)? categoryService.get(restProductSearch.categoryId) : null,
+            restProductSearch.nameLike,
+            restProductSearch.currency,
+            restProductSearch.priceBetween
+        );
     }
 
     // TODO add testing for this method
