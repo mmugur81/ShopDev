@@ -1,10 +1,13 @@
 package com.mmugur81.REST_controller;
 
+import com.mmugur81.REST_model.RestCategory;
 import com.mmugur81.REST_model.RestProduct;
 import com.mmugur81.REST_model.RestProductSearchCriteria;
 import com.mmugur81.REST_model.RestResponse;
+import com.mmugur81.model.Category;
 import com.mmugur81.model.Product;
 import com.mmugur81.model.ProductSearchCriteria;
+import com.mmugur81.service.CategoryService;
 import com.mmugur81.service.ProductService;
 import com.mmugur81.service.UploadService;
 import org.omg.CORBA.Object;
@@ -31,9 +34,12 @@ public class RestProductController {
 
     private ProductService productService;
 
+    private CategoryService categoryService;
+
     @Autowired
-    public RestProductController(ProductService productService) {
+    public RestProductController(ProductService productService, CategoryService categoryService) {
         this.productService = productService;
+        this.categoryService = categoryService;
     }
 
     @ExceptionHandler(Throwable.class)
@@ -77,6 +83,25 @@ public class RestProductController {
             resp.setSuccess(true);
             resp.setData(restProducts);
         }
+
+        return resp;
+    }
+
+    /******************************************************************************************************************/
+
+    @RequestMapping(value = "/categories", method = RequestMethod.GET)
+    public RestResponse<List<RestCategory>> categories() {
+        List<Category> categories = categoryService.getAllCategories();
+
+        List<RestCategory> restCategories = new ArrayList<>();
+        for (Category c : categories) {
+            restCategories.add(c.getRestCategory());
+        }
+
+        RestResponse<List<RestCategory>> resp = new RestResponse<>();
+
+        resp.setSuccess(true);
+        resp.setData(restCategories);
 
         return resp;
     }
