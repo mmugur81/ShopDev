@@ -27,4 +27,9 @@ public class HomeController {
         return "contact";
     }
 
+    @RequestMapping(value = "/shop")
+    public String shop(Model model) {
+        return "shop";
+    }
+
 }
