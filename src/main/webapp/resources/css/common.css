@@ -149,6 +149,15 @@ a.link-add:hover {
     text-align: left;
 }
 
+.product-view {
+    height: 200px;
+    text-align: left;
+    border: solid 2px #5344a5;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 14px;
+}
+
 .col-label {
 
 }

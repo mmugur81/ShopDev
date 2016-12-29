@@ -4,6 +4,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 
 <s:message code="main.home" var="lblHome" />
+<s:message code="main.shop" var="lblShop" />
 <s:message code="main.about" var="lblAbout" />
 <s:message code="main.contact" var="lblContact" />
 <s:message code="main.admin" var="lblAdmin" />
@@ -54,6 +55,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li><a href="${contextPath}/">${lblHome}</a></li>
+        <li><a href="${contextPath}/shop">${lblShop}</a></li>
         <li><a href="${contextPath}/about">${lblAbout}</a></li>
         <li><a href="${contextPath}/contact">${lblContact}</a></li>
         <sec:authorize access="hasAuthority('ADMIN')">
