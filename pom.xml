@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mmugur81</groupId>
-    <artifactId>ShopDev</artifactId>
+    <artifactId>shop-dev</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -22,6 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <docker.plugin.version>0.20.0</docker.plugin.version>
     </properties>
 
     <dependencies>
@@ -106,6 +107,36 @@
                 </executions>
             </plugin>-->
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker.plugin.version}</version>
+                    <configuration>
+                        <logDate>default</logDate>
+                        <autoPull>true</autoPull>
+                        <images>
+                            <image>
+                                <alias>shop-dev</alias>
+                                <name>%g/%a:%l</name>
+                                <build>
+                                    <assembly>
+                                        <descriptor>assembly.xml</descriptor>
+                                    </assembly>
+                                    <from>fabric8/java-alpine-openjdk8-jdk:1.2</from>
+                                    <ports>
+                                        <port>8080</port>
+                                    </ports>
+                                    <cmd>java $JAVA_OPTS -jar /maven/shop-dev.war $OPTS</cmd>
+                                </build>
+                            </image>
+                        </images>
+                    </configuration>
+
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
 
